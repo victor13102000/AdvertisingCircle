@@ -1,32 +1,15 @@
-# Prueba técnica
+# AdPolygon Web
 
-## Objetivo
+## Reglas
 
-Implementar las funciones básicas del API de autenticación de Clusterby en un proyecto ReactJS.
-
-## Explicación a detalle
-
-En el siguiente apartado, hay una documentación express de los 4 endpoints básicos de nuestro API de autenticación.
-
-Hay uno para iniciar sesión, uno para registro, uno para cerrar sesión, y otro para autenticarse con un token.
-
-Lo que hay que hacer, principalmente, es crear un proyecto ReactJS que contenga:
-
-- Una página de signup, dónde existan 3 inputs (email, username, password).
-- Una página de signin, dónde existan 2 inputs (username, password).
-- Una página vacía con un texto que diga "Home". A esta página serían redireccionados los usuarios que hayan iniciado sesión correctamente. También allí debe haber un botón para cerrar sesión. Se debe llamar al endpoint /signout, borrar el TOKEN del local storage, y redirigir al usuario a la página de signin.
-
-Los username, emails y password, como se verá en el siguiente apartado, debe codificarse en BASE64 antes de ser enviada al API.
-
-Luego de que un usuario se registre correctamente, debe ser redirigido a la página de signin.
-
-Posterior a que un usuario inicie sesión correctamente, en el response, llegará un TOKEN. Este mismo, debe guardarse en el local storage, para ser utilizado en llamadas como /auth o /signout.
-
-Cada vez que el usuario cargue la página desde 0, se debe comprobar si existe un TOKEN guardado en el local storage. En caso afirmativo, se debe usar el /auth. Si retorna que el TOKEN es válido, se lo redirige a /home. En el caso contrario, se borra ese TOKEN del local storage y se lo redirige a /signin.
-
-ACLARACIÓN: No se busca un trabajo estético. Solo se quiere evaluar como el profesional implementa el API, y que idea tiene de como es un flujo de autenticación. Solamente con los campos de texto y botones necesarios, ya es suficiente.
-
-Al finalizar se debe hacer un push y avisar vía email a kevinladelfa@clusterby.com especificando el nombre del profesional.
+- Siempre que se quiera almacenar un token del lado del cliente, hacerlo en el local storage, nunca en una cookie.
+- Para este repositorio (Front End), utilizar ReactJS.
+- No utilizar TypeScript. Utilizar siempre JavaScript.
+- Utilizar nomenclatura camelCase para variables y funciones.
+- Cada desarrollador deberá tener su propia rama en el repositorio.
+- Utilizar la rama "pre-test" para hacer merge de sus cambios. En esta rama, podrán probar entre ustedes el funcionamiento con los aportes de cada desarrollador.
+- La rama "test" será utilizada para hacer una prueba global a final de cada semana.
+- La rama "main" (producción), será utilizada para subir las actualizaciones desde la rama "test" al final de cada semana (en el caso que todo esté bien).
 
 # Autenticación
 
