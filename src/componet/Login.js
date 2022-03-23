@@ -56,11 +56,14 @@ export default function SignIn() {
 const {register, handleSubmit, formState: { errors }} = useForm()
 //const navigate = useNavigate()
 
-const onSubmit =(data)=>{
- data.email = btoa(data.email);
+const onSubmit =(data, e)=>{
+  e.preventDefault()
+  console.log('lo que llega en el objeto' , data)
+ data.username = btoa(data.username);
  data.password = btoa(data.password);
- console.log(data)
     axios.post('https://accounts.clusterby.com/signin', data)
+  .then(res=> res.data.token)
+  .then ((token)=> localStorage.setItem('tokenLogin', JSON.stringify(token)))
     /* .then(()=> navigate('/')) */
 }
 
@@ -76,22 +79,20 @@ const onSubmit =(data)=>{
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}
         className={classes.form} noValidate>
-          <TextField 
-          {...register('username', 
-          {required: "This is required.",
-          },
-
-          )}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="User Name"
-            name="userName"
-            autoComplete="userName"
-            autoFocus
-          />
+          <TextField
+               {...register('username',
+               {
+                required: "This is required."
+              }
+               )}
+                name="username"
+                variant="outlined"
+                required
+                fullWidth
+                id="username"
+                label="User Name"
+                autoFocus
+              />
           <ErrorMessage
         errors={errors}
         name="username"
