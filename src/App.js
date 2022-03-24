@@ -7,28 +7,18 @@ import { useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  useEffect(()=>{
-    const tokenLocal = localStorage.getItem('tokenLogin')
-    const token = tokenLocal.substring(1, tokenLocal.length - 1)
-console.log(token)
-
-
-const config = {
-  headers: { "Authorization": `Bearer ${token}`  }
-}
-console.log('config', config)
-const bodyParameters = {
-  "Content-Type": "application/json"
-};
-axios.post( 
-  'https://accounts.clusterby.com/auth',
-  bodyParameters,
-  config
-).then(console.log).catch(console.log); 
-
-
-
-}, [])
+  useEffect(() => {
+    const token= JSON.parse(localStorage.getItem('tokenLogin'))
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+    const bodyParameters = {
+      "Content-Type": "application/json",
+    };
+    axios
+      .post("https://accounts.clusterby.com/auth", bodyParameters, config)
+      .catch(console.log);
+  }, []);
 
   return (
     <div>
@@ -36,8 +26,8 @@ axios.post(
         <Navbar />
       </header>
       <Routes>
-        <Route path= "/register" element={<SignUp />} />
-        <Route path= "/login" element={<SignIn />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />} />
       </Routes>
     </div>
   );

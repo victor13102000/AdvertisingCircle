@@ -5,17 +5,17 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import MenuUser from "./MenuUser"
+import axios from "axios";
+import {useNavigate} from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -85,9 +85,27 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const userLS= JSON.parse(localStorage.getItem('user'))
+  const tokenLS= JSON.parse(localStorage.getItem('tokenLogin'))
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const navigate= useNavigate()
+
+
+  const logoutFunction = ()=>{
+    const config = {
+      headers: { Authorization: `Bearer ${tokenLS}` },
+    }
+    const bodyParameters = {
+      "Content-Type": "application/json",
+    };
+
+    axios
+      .post("https://accounts.clusterby.com/signout", bodyParameters, config)
+      .then(()=> {localStorage.removeItem("user")
+        localStorage.removeItem("tokenLogin")})
+        .then(()=>navigate('/'))
+  }
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -117,8 +135,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>change password</MenuItem>
+
     </Menu>
   );
 
@@ -133,27 +151,38 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+
+      {userLS=== null ? 
+      <>
         <Link to='/login'>
+       <MenuItem>
           <p>Login</p>
+        </MenuItem>
         </Link>
-      </MenuItem>
-      <MenuItem>
         <Link to='/register'>
+      <MenuItem>
           <p>Register</p>
+      </MenuItem> 
         </Link>
-      </MenuItem>
+      </>
+      : 
+      <>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
-        >
+          >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        Profile
       </MenuItem>
+      <MenuItem onClick={logoutFunction}>
+       Logout 
+      </MenuItem>
+      </> 
+      }
     </Menu>
   );
 
@@ -186,6 +215,8 @@ export default function PrimarySearchAppBar() {
             />
           </div>
           <div className={classes.grow} />
+          {userLS === null? 
+          <>
           <div className={classes.sectionDesktop}>
             <Link to="/login">
               <Button variant="contained" size="small" color="primary">
@@ -197,12 +228,15 @@ export default function PrimarySearchAppBar() {
                 Register
               </Button>
             </Link>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge color="secondary"></Badge>
-
-              <AccountCircle />
-            </IconButton>
+          </div> 
+          </>
+           : 
+          <>
+          <div className={classes.sectionDesktop}>
+        <MenuUser/>
           </div>
+          </>
+          }
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

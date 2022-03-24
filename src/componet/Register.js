@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import { ErrorMessage } from "@hookform/error-message";
+import {Link as Linked, useNavigate} from 'react-router-dom'
 
 function Copyright() {
   return (
@@ -50,14 +51,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const navigate= useNavigate()
   const classes = useStyles();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit=(data)=>{
       data.email= btoa(data.email);
       data.password = btoa(data.password)
       data.username= btoa(data.username)
-      console.log(data )
       axios.post('https://accounts.clusterby.com/signup ', data)
+      .then(()=> navigate('/login'))
   }
 
   return (
@@ -154,9 +156,9 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Linked to='/login'>
                 Already have an account? Sign in
-              </Link>
+              </Linked>
             </Grid>
           </Grid>
         </form>
