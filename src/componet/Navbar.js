@@ -13,9 +13,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import MenuUser from "./MenuUser"
-import axios from "axios";
-import {useNavigate} from 'react-router'
+import MenuUser from "./MenuUser";
+import { useNavigate } from "react-router";
+import { LogoutFunction } from "../service/LogoutFunction";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -82,29 +82,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const navigate = useNavigate();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const userLS= JSON.parse(localStorage.getItem('user'))
-  const tokenLS= JSON.parse(localStorage.getItem('tokenLogin'))
+  const userLS = JSON.parse(localStorage.getItem("user"));
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const navigate= useNavigate()
 
-
-  const logoutFunction = ()=>{
-    const config = {
-      headers: { Authorization: `Bearer ${tokenLS}` },
-    }
-    const bodyParameters = {
-      "Content-Type": "application/json",
-    };
-    axios
-      .post("https://accounts.clusterby.com/signout", bodyParameters, config)
-      .then(()=> {localStorage.removeItem("user")
-        localStorage.removeItem("tokenLogin")})
-       .then(()=>navigate('/'))
-  }
+  const logoutFunction = () => {
+    LogoutFunction();
+    navigate("/");
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -135,7 +124,6 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>change password</MenuItem>
-
     </Menu>
   );
 
@@ -150,38 +138,35 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-
-      {userLS=== null ? 
-      <>
-        <Link to='/login'>
-       <MenuItem>
-          <p>Login</p>
-        </MenuItem>
-        </Link>
-        <Link to='/register'>
-      <MenuItem>
-          <p>Register</p>
-      </MenuItem> 
-        </Link>
-      </>
-      : 
-      <>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-          >
-          <AccountCircle />
-        </IconButton>
-        Profile
-      </MenuItem>
-      <MenuItem onClick={logoutFunction}>
-       Logout 
-      </MenuItem>
-      </> 
-      }
+      {userLS === null ? (
+        <>
+          <Link to="/login">
+            <MenuItem>
+              <p>Login</p>
+            </MenuItem>
+          </Link>
+          <Link to="/register">
+            <MenuItem>
+              <p>Register</p>
+            </MenuItem>
+          </Link>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={handleProfileMenuOpen}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            Profile
+          </MenuItem>
+          <MenuItem onClick={logoutFunction}>Logout</MenuItem>
+        </>
+      )}
     </Menu>
   );
 
@@ -200,7 +185,7 @@ export default function PrimarySearchAppBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             AdPolygon
           </Typography>
-        {/*   <div className={classes.search}>
+          {/*   <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -214,28 +199,28 @@ export default function PrimarySearchAppBar() {
             />
           </div> */}
           <div className={classes.grow} />
-          {userLS === null? 
-          <>
-          <div className={classes.sectionDesktop}>
-            <Link to="/login">
-              <Button variant="contained" size="small" color="primary">
-                Login
-              </Button>
-            </Link>
-            <Link to="register">
-              <Button variant="contained" size="small" color="primary">
-                Register
-              </Button>
-            </Link>
-          </div> 
-          </>
-           : 
-          <>
-          <div className={classes.sectionDesktop}>
-        <MenuUser/>
-          </div>
-          </>
-          }
+          {userLS === null ? (
+            <>
+              <div className={classes.sectionDesktop}>
+                <Link to="/login">
+                  <Button variant="contained" size="small" color="primary">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="register">
+                  <Button variant="contained" size="small" color="primary">
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={classes.sectionDesktop}>
+                <MenuUser />
+              </div>
+            </>
+          )}
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
