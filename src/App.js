@@ -5,11 +5,11 @@ import Navbar from "./componet/Navbar";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import {persistence} from './service/SingleUser'
+import { persistence } from "./service/SingleUser";
 
 function App() {
   useEffect(() => {
-  persistence()
+    persistence();
   }, []);
 
   return (
@@ -18,6 +18,7 @@ function App() {
         <Navbar />
       </header>
       <Routes>
+        <Route path="/" element={<h1>Hello</h1>} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<SignIn />} />
       </Routes>
