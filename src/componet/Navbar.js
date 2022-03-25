@@ -99,12 +99,11 @@ export default function PrimarySearchAppBar() {
     const bodyParameters = {
       "Content-Type": "application/json",
     };
-
     axios
       .post("https://accounts.clusterby.com/signout", bodyParameters, config)
       .then(()=> {localStorage.removeItem("user")
         localStorage.removeItem("tokenLogin")})
-        .then(()=>navigate('/'))
+       // .then(()=>navigate('/'))
   }
 
   const handleProfileMenuOpen = (event) => {
@@ -201,7 +200,7 @@ export default function PrimarySearchAppBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             AdPolygon
           </Typography>
-          <div className={classes.search}>
+        {/*   <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -213,7 +212,7 @@ export default function PrimarySearchAppBar() {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
           <div className={classes.grow} />
           {userLS === null? 
           <>

@@ -68,11 +68,12 @@ export default function SignIn() {
     axios
       .post("https://accounts.clusterby.com/signin", data)
       .then((res) => res.data)
-      .then((userData) =>{
-        localStorage.setItem("tokenLogin", JSON.stringify(userData.token));
-        localStorage.setItem("user", JSON.stringify(user))
-      }
-      )
+      .then((userData) =>{ 
+        if(userData.token){
+          localStorage.setItem("tokenLogin", JSON.stringify(userData.token));
+          localStorage.setItem("user", JSON.stringify(user))
+        }
+      })
       .then(() => navigate("/"));
   };
 
