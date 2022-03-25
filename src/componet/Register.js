@@ -1,31 +1,32 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+import axios from "axios";
 import { ErrorMessage } from "@hookform/error-message";
-import {Link as Linked, useNavigate} from 'react-router-dom'
+import { Link as Linked, useNavigate } from "react-router-dom";
+import { registerFunction } from "../service/registerFunction";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -33,16 +34,16 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -51,16 +52,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const classes = useStyles();
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit=(data)=>{
-      data.email= btoa(data.email);
-      data.password = btoa(data.password)
-      data.username= btoa(data.username)
-      axios.post('https://accounts.clusterby.com/signup ', data)
-      .then(()=> navigate('/login'))
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    registerFunction(data);
+    navigate("/login");
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,16 +74,17 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}
-        className={classes.form} noValidate>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={classes.form}
+          noValidate
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-               {...register('username',
-               {
-                required: "This is required."
-              }
-               )}
+                {...register("username", {
+                  required: "This is required.",
+                })}
                 name="username"
                 variant="outlined"
                 required
@@ -90,21 +93,21 @@ export default function SignUp() {
                 label="User Name"
                 autoFocus
               />
-                <ErrorMessage
-        errors={errors}
-        name="username"
-        render={({ message }) => <p>{message}</p>}
-      /> 
-            </Grid>            
+              <ErrorMessage
+                errors={errors}
+                name="username"
+                render={({ message }) => <p>{message}</p>}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
-              {...register("email", {
-                required: "This is required.",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "input must be a valid email",
-                },
-              })}
+                {...register("email", {
+                  required: "This is required.",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "input must be a valid email",
+                  },
+                })}
                 variant="outlined"
                 fullWidth
                 id="email"
@@ -112,22 +115,18 @@ export default function SignUp() {
                 name="email"
                 autoComplete="email"
               />
-                 <ErrorMessage
-        errors={errors}
-        name="email"
-        render={({ message }) => <p>{message}</p>}
-      /> 
+              <ErrorMessage
+                errors={errors}
+                name="email"
+                render={({ message }) => <p>{message}</p>}
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField
-              
-              {...register("password", {
-                required: "This is required.",
-                minLength: 8,
-               
-                   
-               
-              })}
+                {...register("password", {
+                  required: "This is required.",
+                  minLength: 8,
+                })}
                 variant="outlined"
                 required
                 fullWidth
@@ -137,13 +136,14 @@ export default function SignUp() {
                 id="password"
                 autoComplete="current-password"
               />
-               <ErrorMessage
-        errors={errors}
-        name="password"
-        render={() => <p>password must be at least 8 character long </p>}
-      /> 
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                render={() => (
+                  <p>password must be at least 8 character long </p>
+                )}
+              />
             </Grid>
-            
           </Grid>
           <Button
             type="submit"
@@ -156,9 +156,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Linked to='/login'>
-                Already have an account? Sign in
-              </Linked>
+              <Linked to="/login">Already have an account? Sign in</Linked>
             </Grid>
           </Grid>
         </form>

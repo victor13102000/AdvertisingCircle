@@ -17,7 +17,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link as Linked } from "react-router-dom";
 import { Link } from "@material-ui/core";
-import Alert from '@material-ui/lab/Alert';
+import Alert from "@material-ui/lab/Alert";
+import { loginRegister } from "../service/LoginRegister";
 
 function Copyright() {
   return (
@@ -63,21 +64,8 @@ export default function SignIn() {
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    const user= data.username
-    data.username = btoa(data.username);
-    data.password = btoa(data.password);
-    axios
-      .post("https://accounts.clusterby.com/signin", data)
-      .then((res) => res.data)
-
-      .then((userData) =>{ 
-        if(userData.token){
-          localStorage.setItem("tokenLogin", JSON.stringify(userData.token));
-          localStorage.setItem("user", JSON.stringify(user))
-        }
-      })
-      .then(() => navigate("/"));
-
+    const userData = loginRegister(data);
+    navigate("/");
   };
 
   return (
