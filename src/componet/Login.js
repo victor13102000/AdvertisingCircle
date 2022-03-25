@@ -17,6 +17,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link as Linked } from "react-router-dom";
 import { Link } from "@material-ui/core";
+import Alert from '@material-ui/lab/Alert';
 
 function Copyright() {
   return (
@@ -69,11 +70,13 @@ export default function SignIn() {
       .post("https://accounts.clusterby.com/signin", data)
       .then((res) => res.data)
       .then((userData) =>{
-        localStorage.setItem("tokenLogin", JSON.stringify(userData.token));
+        userData.token?
+        localStorage.setItem("tokenLogin", JSON.stringify(userData.token))
         localStorage.setItem("user", JSON.stringify(user))
       }
       )
-      .then(() => navigate("/"));
+      .catch((err)=> {return <Alert severity="error">{err}</Alert>})
+      .then(() => navigate("/"))
   };
 
   return (

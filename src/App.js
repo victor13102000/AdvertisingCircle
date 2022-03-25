@@ -5,19 +5,11 @@ import Navbar from "./componet/Navbar";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import {persistence} from './service/SIngleUser'
 
 function App() {
   useEffect(() => {
-    const token= JSON.parse(localStorage.getItem('tokenLogin'))
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-    const bodyParameters = {
-      "Content-Type": "application/json",
-    };
-    axios
-      .post("https://accounts.clusterby.com/auth", bodyParameters, config)
-      .catch(console.log);
+    persistence();
   }, []);
 
   return (
