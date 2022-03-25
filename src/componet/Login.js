@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
+
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link as Linked } from "react-router-dom";
@@ -52,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const [errMessage, setErrMessage] = useState();
+
   const classes = useStyles();
   const {
     register,
@@ -62,19 +64,21 @@ export default function SignIn() {
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    const user= data.username
+    const user = data.username;
     data.username = btoa(data.username);
     data.password = btoa(data.password);
     axios
       .post("https://accounts.clusterby.com/signin", data)
       .then((res) => res.data)
-      .then((userData) =>{ 
-        if(userData.token){
+      .then((userData) => {
+        setErrMessage(userData);
+        if (userData.token) {
           localStorage.setItem("tokenLogin", JSON.stringify(userData.token));
-          localStorage.setItem("user", JSON.stringify(user))
+          localStorage.setItem("user", JSON.stringify(user));
         }
+        userData.success && navigate("/")
       })
-      .then(() => navigate("/"));
+      
   };
 
   return (
@@ -104,11 +108,7 @@ export default function SignIn() {
             label="User Name"
             autoFocus
           />
-          <ErrorMessage
-            errors={errors}
-            name="username"
-            render={({ message }) => <p>{message}</p>}
-          />
+
           <TextField
             {...register("password", { required: "This is required." })}
             variant="outlined"
@@ -121,11 +121,9 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ message }) => <p>{message}</p>}
-          />
+          {errMessage && !errMessage.success && (
+            <Typography color="error">*{errMessage.message}</Typography>
+          )}
 
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
