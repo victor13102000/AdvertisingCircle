@@ -103,7 +103,7 @@ export default function PrimarySearchAppBar() {
       .post("https://accounts.clusterby.com/signout", bodyParameters, config)
       .then(()=> {localStorage.removeItem("user")
         localStorage.removeItem("tokenLogin")})
-       // .then(()=>navigate('/'))
+       .then(()=>navigate('/'))
   }
 
   const handleProfileMenuOpen = (event) => {
