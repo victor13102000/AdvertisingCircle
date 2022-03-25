@@ -69,14 +69,15 @@ export default function SignIn() {
     axios
       .post("https://accounts.clusterby.com/signin", data)
       .then((res) => res.data)
-      .then((userData) =>{
-        userData.token?
-        localStorage.setItem("tokenLogin", JSON.stringify(userData.token))
-        localStorage.setItem("user", JSON.stringify(user))
-      }
-      )
-      .catch((err)=> {return <Alert severity="error">{err}</Alert>})
-      .then(() => navigate("/"))
+
+      .then((userData) =>{ 
+        if(userData.token){
+          localStorage.setItem("tokenLogin", JSON.stringify(userData.token));
+          localStorage.setItem("user", JSON.stringify(user))
+        }
+      })
+      .then(() => navigate("/"));
+
   };
 
   return (

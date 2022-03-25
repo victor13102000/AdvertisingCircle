@@ -5,11 +5,11 @@ import Navbar from "./componet/Navbar";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import {persistence} from './service/SIngleUser'
+import {persistence} from './service/SingleUser'
 
 function App() {
   useEffect(() => {
-    persistence();
+  persistence()
   }, []);
 
   return (
