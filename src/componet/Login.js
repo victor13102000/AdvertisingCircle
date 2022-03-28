@@ -114,11 +114,6 @@ export default function SignIn() {
           {errMessage && !errMessage.success && (
             <Typography color="error">*{errMessage.message}</Typography>
           )}
-
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -131,6 +126,9 @@ export default function SignIn() {
           <Grid container>
             <Grid item>
               <Linked to="/register">{"Don't have an account? Sign Up"}</Linked>
+            </Grid>
+            <Grid item>
+              <Linked to="/requestpasswordchange">{"Can´t remember your passworkd? Ask for a new one"}</Linked>
             </Grid>
           </Grid>
         </form>

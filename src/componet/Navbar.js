@@ -88,7 +88,8 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>change password</MenuItem>
     </Menu>
-  );
+    
+  )
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -117,9 +118,12 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            AdPolygon
-          </Typography>
+          <Link to={"/"} style={{ textDecoration: 'none', color: 'white' }}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              AdPolygon
+            </Typography>
+          </Link>
+
           {/*   <Search/> */}
           <div className={classes.grow} />
           {userLS === null ? (

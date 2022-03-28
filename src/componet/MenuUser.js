@@ -10,6 +10,7 @@ import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { LogoutFunction } from "../service/LogoutFunction";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const StyledMenu = withStyles({
   paper: {
@@ -83,7 +84,9 @@ export default function CustomizedMenus() {
       >
         <StyledMenuItem>
           <ListItemIcon>
-            <ListItemText primary="Change password" />
+            <Link to={"/requestpasswordchange"} style={{ textDecoration: 'none'}}>
+              <ListItemText onClick={handleClose} primary="Change password" />
+            </Link>
           </ListItemIcon>
         </StyledMenuItem>
         <StyledMenuItem>
