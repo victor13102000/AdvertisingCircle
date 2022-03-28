@@ -66,9 +66,10 @@ export default function SignIn() {
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    
-    const userData = loginRegister(data);
-    navigate("/");
+    loginRegister(data).then((data) => {
+      setErrMessage(data);
+      data.success && navigate("/");
+    });
   };
 
   return (
