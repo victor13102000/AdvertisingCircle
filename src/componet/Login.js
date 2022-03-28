@@ -17,7 +17,6 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link as Linked } from "react-router-dom";
 import { Link } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
 import { loginRegister } from "../service/LoginRegister";
 
 function Copyright() {
@@ -66,9 +65,10 @@ export default function SignIn() {
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    
-    const userData = loginRegister(data);
-    navigate("/");
+    loginRegister(data).then((data) => {
+      setErrMessage(data);
+      data.success && navigate("/");
+    });
   };
 
   return (
