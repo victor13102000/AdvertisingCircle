@@ -57,7 +57,7 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
   };
 
-  const userLS = JSON.parse(localStorage.getItem("user"));
+  const userLS = atob(JSON.parse(localStorage.getItem("user")));
 
   return (
     <div>
