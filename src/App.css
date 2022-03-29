@@ -7,6 +7,28 @@
   pointer-events: none;
 }
 
+.contenedorChooser{
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.paginaPerfil{
+  position:relative;
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.contenedorPerfil{
+  position:absolute;
+  width: 100%;
+}
+
+.contenedorPerfilForm{
+margin-top: 5%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

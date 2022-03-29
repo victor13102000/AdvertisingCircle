@@ -84,6 +84,13 @@ export default function CustomizedMenus() {
       >
         <StyledMenuItem>
           <ListItemIcon>
+            <Link to={"/profile"} style={{ textDecoration: 'none'}}>
+              <ListItemText onClick={handleClose} primary="Profile" />
+            </Link>
+          </ListItemIcon>
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <ListItemIcon>
             <Link to={"/requestpasswordchange"} style={{ textDecoration: 'none'}}>
               <ListItemText onClick={handleClose} primary="Change password" />
             </Link>
