@@ -9,6 +9,10 @@ import axios from "axios";
 import { persistence } from "./service/SingleUser";
 import RequestPassChangeScreen from "./componet/RequestPassChangeScreen";
 import ChangePasswordScreen from "./componet/ChangePasswordScreen";
+import ChooseUser from "./componet/ChooseUser"
+import Advertiser from "./componet/Advertiser"
+import Publisher from "./componet/Publisher"
+import Profile from "./componet/Profile";
 
 function App() {
   useEffect(() => {
@@ -26,7 +30,10 @@ function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
-
+        <Route path = "/chooseUser" element = {<ChooseUser/>}/>
+        <Route path="/advertiser" element={<Advertiser/>} />
+        <Route path="/publisher" element={<Publisher/>} />
+        <Route path= "/profile" element={<Profile/>}/>
       </Routes>
     </div>
   );
