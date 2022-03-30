@@ -6,6 +6,7 @@ import { selectUserType } from "../service/SelectUserType";
 import { useNavigate } from "react-router";
 import imagePublisher from "../assets/publisher.jpg";
 import imageAdvertiser from "../assets/advertiser.jpg";
+import axios from "axios";
 
 const images = [
   {
@@ -105,8 +106,17 @@ export default function ButtonBases() {
     function handleClick(tipo){
         tipo = tipo.toLowerCase()
         selectUserType(tipo)
+        
+        const username = atob(JSON.parse(localStorage.getItem("user")));
 
-        navigate(`/${tipo}`)
+        axios
+        .post("http://localhost:3005/user/create", {
+          username: username, 
+          type: tipo,
+          data: {}
+        })
+        .then(()=> {navigate(`/${tipo}`)})
+        .catch(err => console.log(err))
 
     }
 
