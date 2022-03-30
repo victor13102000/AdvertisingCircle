@@ -66,8 +66,15 @@ export default function SignIn() {
   const onSubmit = (data, e) => {
     e.preventDefault();
     loginRegister(data).then((data) => {
+      console.log(data)
       setErrMessage(data);
-      data.success && navigate("/");
+      
+      /* Pedido get a la Api para saber si el usuario existe en la coleccion users y si existe, si tiene un tipo de usuario.
+      Condicional frente a la respuesta:
+      - Si no existe, redireccionamos a la ruta /chooseUser para poder crear ese registro con tipo de usuario incluido.
+      - Si existe, redireccionamos a la ruta /publisher / /advertiser de acuerdo al tipo de usuario que devuelve la respuesta */
+
+      data.success && navigate("/chooseUser");
     });
   };
 
