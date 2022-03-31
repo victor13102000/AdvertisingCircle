@@ -1,4 +1,4 @@
-import { ControlPointSharp } from "@material-ui/icons";
+
 import axios from "axios";
 
 export const registerFunction = async (data) => {

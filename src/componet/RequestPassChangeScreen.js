@@ -72,9 +72,11 @@ const RequestPassChangeScreen = () => {
                     <Avatar className={classes.avatar}>
                         <EmailIcon />
                     </Avatar>
-
+                    <Typography component="h1" variant="h4" align="center">
+                        Forgot Password?
+                    </Typography>
                     <Typography component="h6" style={{ textAlign: "center" }}>
-                        Ingrese el nombre del usuario para recibir un correo con el código para el cambio de clave
+                        Please enter your username below
                     </Typography>
 
                     <form onSubmit={handleSubmit(onSubmit)}
@@ -84,14 +86,14 @@ const RequestPassChangeScreen = () => {
                                 <TextField
                                     {...register('username',
                                         {
-                                            required: "Favor ingrese el usuario."
+                                            required: "Must enter a valid username."
                                         }
                                     )}
                                     name="username"
                                     variant="outlined"
                                     fullWidth
                                     id="username"
-                                    label="Ingrese su usuario"
+                                    label="Username"
                                     autoFocus
                                 />
                                 <ErrorMessage
@@ -111,7 +113,7 @@ const RequestPassChangeScreen = () => {
                             color="primary"
                             className={classes.submit}
                         >
-                            Solicitar cambio Password
+                            Ask for a new password
                         </Button>
                     </form>
                 </div>

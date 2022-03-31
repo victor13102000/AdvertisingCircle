@@ -59,7 +59,7 @@ const ChangePasswordScreen = () => {
             console.log(userData);
             navigate("/login")
         } else {
-            console.log("Las claves no coinciden")
+            alert("ver!!!")
         }
 
     }
@@ -128,9 +128,6 @@ const ChangePasswordScreen = () => {
                                     {...register("password", {
                                         required: "This is required.",
                                         minLength: 8,
-
-
-
                                     })}
                                     variant="outlined"
                                     required
@@ -153,9 +150,6 @@ const ChangePasswordScreen = () => {
                                     {...register("confirmpassword", {
                                         required: "This is required.",
                                         minLength: 8,
-
-
-
                                     })}
                                     variant="outlined"
                                     required

@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     minWidth: 300,
     width: "80%",
-    position:"absolute",
-    transform: "translate(0, 100%)"
+    position: "absolute",
+    transform: "translate(0, 100%)",
   },
   image: {
     position: "relative",
@@ -99,32 +99,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ButtonBases() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const classes = useStyles();
 
-    function handleClick(tipo){
-        tipo = tipo.toLowerCase()
-        selectUserType(tipo)
-        
-        const username = atob(JSON.parse(localStorage.getItem("user")));
-
-        axios
-        .post("http://localhost:3005/user/create", {
-          username: username, 
-          type: tipo,
-          data: {}
-        })
-        .then(()=> {navigate(`/${tipo}`)})
-        .catch(err => console.log(err))
-
-    }
-
-
+  function handleClick(tipo) {
+    tipo = tipo.toLowerCase();
+    selectUserType(tipo);
+    navigate(`/${tipo}`);
+  }
 
   return (
     <div className="contenedorChooser">
-        <h1>Pick your role...</h1>
+      <h1>Pick your role...</h1>
       <div className={classes.root}>
         {images.map((image) => (
           <ButtonBase
