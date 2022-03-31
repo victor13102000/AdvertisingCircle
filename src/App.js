@@ -4,7 +4,7 @@ import SignUp from "./componet/Register";
 import Navbar from "./componet/Navbar";
 import ChangePassword from "./componet/ChangePasswordScreen";
 import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { persistence } from "./service/SingleUser";
 import RequestPassChangeScreen from "./componet/RequestPassChangeScreen";
@@ -13,9 +13,12 @@ import ChooseUser from "./componet/ChooseUser"
 import Advertiser from "./componet/Advertiser"
 import Publisher from "./componet/Publisher"
 import Profile from "./componet/Profile";
-//import {userSearch} from "../service/loginRegister"
+import { useSelector } from "react-redux";
 
 function App() {
+  const type = useSelector((state) => state.type);
+  console.log(type)
+
   useEffect(() => {
     persistence();
     
@@ -33,8 +36,8 @@ function App() {
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
         <Route path = "/chooseUser" element = {<ChooseUser/>}/>
-        <Route path="/advertiser" element={<Advertiser/>} />
-        <Route path="/publisher" element={<Publisher/>} />
+        <Route path="/advertiser" element={type === "advertiser"? <Advertiser/>: <h1>ERROR</h1>} />
+        <Route path="/publisher" element={type === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
         <Route path= "/profile" element={<Profile/>}/>
       </Routes>
     </div>

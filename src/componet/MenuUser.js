@@ -82,6 +82,7 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        {/* Ternario chequeando el tipo de usuario del que se trata --> Si es un publisher, se muestra la opcion de editar perfil. Si es advertiser, no.*/}
         <StyledMenuItem>
           <ListItemIcon>
             <Link to={"/profile"} style={{ textDecoration: 'none'}}>

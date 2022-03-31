@@ -16,10 +16,9 @@ export const loginRegister = async (data) => {
 };
 
 export const userSearch = async() => {
-  const username = atob(JSON.parse(localStorage.getItem("user")));
-  console.log(username)
+  const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
   try{
-    const res = await axios.post("http://localhost:3005/user/data", {"username": username})
+    const res = await axios.post("http://localhost:3005/user/data", {token: tokenLS})
     return res 
   }catch(err){ console.log(err)}
       

@@ -17,6 +17,8 @@ import { Link as Linked } from "react-router-dom";
 import { Link } from "@material-ui/core";
 import { loginRegister } from "../service/LoginRegister";
 import { userSearch } from "../service/LoginRegister";
+import { useDispatch } from "react-redux";
+import { setType } from "../states/Type";
 
 function Copyright() {
   return (
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const [errMessage, setErrMessage] = useState();
-
+  const dispatch = useDispatch();
   const classes = useStyles();
   const {
     register,
@@ -62,16 +64,17 @@ export default function SignIn() {
   } = useForm();
   const navigate = useNavigate();
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async(data, e) => {
     e.preventDefault();
-    loginRegister(data).then((data) => {
-      console.log(data);
+    await loginRegister(data).then((data) => {
       setErrMessage(data);
     });
 
-    userSearch().then((res) => res.data).then((data)=>{
-      console.log("userSearc", data);
-      if (data.type) {navigate(`/${data.type}`)
+    userSearch().then((res)=> res.data).then(res => res.data).then(res => {
+      
+      if (res.type) {
+        dispatch(setType(res.type))
+        navigate(`/${res.type}`)
     }
       else {navigate("/chooseUser")};
     });
