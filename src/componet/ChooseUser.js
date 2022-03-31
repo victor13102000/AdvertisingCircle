@@ -8,6 +8,7 @@ import imagePublisher from "../assets/publisher.jpg";
 import imageAdvertiser from "../assets/advertiser.jpg";
 import axios from "axios";
 
+
 const images = [
   {
     url: imagePublisher,
@@ -105,7 +106,9 @@ export default function ButtonBases() {
 
   function handleClick(tipo) {
     tipo = tipo.toLowerCase();
+
     selectUserType(tipo);
+    
     navigate(`/${tipo}`);
   }
 

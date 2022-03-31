@@ -11,14 +11,22 @@ export const registerFunction = async (data) => {
 };
 
 export const profileRegister = async (data) =>{
-  const username = atob(JSON.parse(localStorage.getItem("user")))
-
-  data.username = username
+  const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"))
    
   try{
-    const res = await axios.put("http://localhost:3005/user/update", data)
-    
+    const res = await axios.put("http://localhost:3005/user/update", {token: tokenLS, data})
     return res
+  }catch(error){
+    console.log(error)
+  }
+}
+
+export const profileGet = async (data) =>{
+  const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"))
+   
+  try{
+    const res = await axios.post("http://localhost:3005/user/data", {token: tokenLS})
+    return res.data.data.data
   }catch(error){
     console.log(error)
   }
