@@ -80,7 +80,7 @@ export default function SignUp() {
           noValidate
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} >
               <TextField
                 {...register("username", {
                   required: "This is required.",

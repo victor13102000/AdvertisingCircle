@@ -13,10 +13,12 @@ import ChooseUser from "./componet/ChooseUser"
 import Advertiser from "./componet/Advertiser"
 import Publisher from "./componet/Publisher"
 import Profile from "./componet/Profile";
+//import {userSearch} from "../service/loginRegister"
 
 function App() {
   useEffect(() => {
     persistence();
+    
   }, []);
 
   return (

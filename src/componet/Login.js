@@ -12,13 +12,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
-
-import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link as Linked } from "react-router-dom";
 import { Link } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
 import { loginRegister } from "../service/LoginRegister";
+import { userSearch } from "../service/LoginRegister";
 
 function Copyright() {
   return (
@@ -67,15 +65,15 @@ export default function SignIn() {
   const onSubmit = (data, e) => {
     e.preventDefault();
     loginRegister(data).then((data) => {
-      console.log(data)
+      console.log(data);
       setErrMessage(data);
-      
-      /* Pedido get a la Api para saber si el usuario existe en la coleccion users y si existe, si tiene un tipo de usuario.
-      Condicional frente a la respuesta:
-      - Si no existe, redireccionamos a la ruta /chooseUser para poder crear ese registro con tipo de usuario incluido.
-      - Si existe, redireccionamos a la ruta /publisher / /advertiser de acuerdo al tipo de usuario que devuelve la respuesta */
+    });
 
-      data.success && navigate("/chooseUser");
+    userSearch().then((res) => res.data).then((data)=>{
+      console.log("userSearc", data);
+      if (data.type) {navigate(`/${data.type}`)
+    }
+      else {navigate("/chooseUser")};
     });
   };
 
@@ -136,7 +134,9 @@ export default function SignIn() {
               <Linked to="/register">{"Don't have an account? Sign Up"}</Linked>
             </Grid>
             <Grid item>
-              <Linked to="/requestpasswordchange">{"Can´t remember your passworkd? Ask for a new one"}</Linked>
+              <Linked to="/requestpasswordchange">
+                {"Can´t remember your passworkd? Ask for a new one"}
+              </Linked>
             </Grid>
           </Grid>
         </form>
