@@ -8,7 +8,7 @@ export const changePassword = async (data) => {
     data.code = btoa(data.code);
 
     const res = await axios.post("https://accounts.clusterby.com/restore/password", data)
-    return res
+    return res.data
   } catch (error) {
     console.log(error);
   }

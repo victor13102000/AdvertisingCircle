@@ -9,6 +9,7 @@ export const loginRegister = async (data) => {
       localStorage.setItem("tokenLogin", JSON.stringify(res.data.token));
       localStorage.setItem("user", JSON.stringify(data.username));
     }
+    console.log(res)
     return res.data;
   } catch (err) {
     console.log(err);

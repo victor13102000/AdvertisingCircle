@@ -44,7 +44,23 @@ function Profile(){
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputLanguage">Language</label>
-                                    <input {... register("language")} defaultValue={data.language? data.language: ""} type="text" class="form-control" id="inputLanguage"/>
+                                    <select {... register("language")} id="inputLanguage" class="form-control">
+                                        {data.language?(
+                                            <>
+                                                <option selected >{data.language}</option>
+                                                    {data.language === "Spanish" ?(<><option>English</option><option>Portuguese</option></> ) : 
+                                                    (data.language === "English"?(<><option>Spanish</option><option>Portuguese</option></> ):
+                                                    (<><option>English</option><option>Spanish</option></> ))}  
+                                            </>
+                                        ):(
+                                            <>
+                                                <option selected >Choose...</option>
+                                                <option>Spanish</option>
+                                                <option>English</option>
+                                                <option>Portugese</option>
+                                            </>
+                                        )}
+                                    </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputGender">Gender:</label>
