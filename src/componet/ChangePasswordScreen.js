@@ -56,12 +56,14 @@ const ChangePasswordScreen = () => {
     const password = useRef({});
     password.current = watch("password", "");
 
-    const onSubmit = (data) => {
-        if (data.success ===  true) {
-            const userData = changePassword(data);
-            console.log(userData);
+    const onSubmit = async(data) => {
+        const user = await changePassword(data)
+        if (user.data.success ===  true) {
             navigate("/login")
+        }else{
+            alert("Error de cambio de Password")
         }
+        
 
     }
 
