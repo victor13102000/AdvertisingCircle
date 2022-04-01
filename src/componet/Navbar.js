@@ -16,6 +16,7 @@ import { LogoutFunction } from "../service/LogoutFunction";
 import LoginRegisterButton from "../common/LoginRegisterButton";
 import MenuUserNadvar from "../common/MenuUserNadvar";
 import Search from "./Search";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -52,6 +53,7 @@ export default function PrimarySearchAppBar() {
   const userLS = JSON.parse(localStorage.getItem("user"));
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const type = useSelector((state) => state.type);
 
   const logoutFunction = () => {
     LogoutFunction();
@@ -118,7 +120,7 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Link to={"/"} style={{ textDecoration: 'none', color: 'white' }}>
+          <Link to={`/${type}`} style={{ textDecoration: 'none', color: 'white' }}>
             <Typography className={classes.title} variant="h6" noWrap>
               AdPolygon
             </Typography>

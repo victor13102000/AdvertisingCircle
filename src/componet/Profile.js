@@ -1,7 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { profileGet, profileRegister } from "../service/registerFunction";
+import { alertaCorrecta, alertaIncorrecta } from "../common/Alertas";
+
 
 function Profile(){
     const [data, setData] = useState({})
@@ -17,11 +18,13 @@ function Profile(){
     const onSubmit = async (data, e) =>{
         e.preventDefault()
         
-        const res = await profileRegister(data)
-
+        profileRegister(data)
+        /*
+        .then(()=> alertaCorrecta()
+        ).catch(err => alertaIncorrecta()
+        )*/
     }
 
-    console.log(data)
     return (
         <div className="paginaPerfil">
             <div className="contenedorPerfil">
@@ -46,9 +49,18 @@ function Profile(){
                             <div class="form-group col-md-4">
                                 <label for="inputGender">Gender:</label>
                                     <select {... register("gender")} id="inputGender" class="form-control">
-                                        {data.gender?<option selected >{data.gender}</option>:<option selected >Choose...</option>}
-                                        <option>Male</option>
-                                        <option>Female</option>
+                                        {data.gender?
+                                        <>
+                                        <option selected >{data.gender}</option>
+                                        {data.gender === "Male"? 
+                                        <option>Female</option>: <option>Male</option> }
+                                        </>
+                                        :
+                                        <>
+                                            <option selected >Choose...</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </>}
                                     </select>
                             </div>
                             <div class="form-group col-md-2">
