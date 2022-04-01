@@ -1,14 +1,13 @@
 import axios from "axios";
 
 export const selectUserType = async (tipo) => {
-  // const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
-  const user = atob(JSON.parse(localStorage.getItem("user")));
+
+  const tokenSL = JSON.parse(localStorage.getItem("tokenLogin"));
 
   try {
-    const res = axios.post("http://localhost:3005/user/create", {
-      username: user,
-      type: tipo,
-      data: {},
+    const res = axios.put("http://localhost:3005/user/update/type", {
+      token: tokenSL,
+      type: tipo
     });
     return res;
   } catch (err) {
