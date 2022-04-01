@@ -70,8 +70,8 @@ export default function SignIn() {
       setErrMessage(data);
     });
 
-    userSearch().then((res)=> res.data).then(res => res.data).then(res => {
-      
+    userSearch().then((res)=> res.user).then(res =>{
+      console.log(res)
       if (res.type) {
         dispatch(setType(res.type))
         navigate(`/${res.type}`)

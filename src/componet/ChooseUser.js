@@ -4,6 +4,8 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import { selectUserType } from "../service/SelectUserType";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setType } from "../states/Type";
 import imagePublisher from "../assets/publisher.jpg";
 import imageAdvertiser from "../assets/advertiser.jpg";
 import axios from "axios";
@@ -100,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ButtonBases() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const classes = useStyles();
@@ -108,6 +111,7 @@ export default function ButtonBases() {
     tipo = tipo.toLowerCase();
 
     selectUserType(tipo);
+    dispatch(setType(tipo))
     
     navigate(`/${tipo}`);
   }

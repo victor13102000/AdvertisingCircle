@@ -18,8 +18,9 @@ export const loginRegister = async (data) => {
 export const userSearch = async() => {
   const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
   try{
-    const res = await axios.post("http://localhost:3005/user/data", {token: tokenLS})
-    return res 
+    const res = await axios.post("http://localhost:3005/user/create", {token: tokenLS})
+    console.log(res)
+    return res.data
   }catch(err){ console.log(err)}
       
 }
