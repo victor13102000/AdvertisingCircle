@@ -17,8 +17,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from 'react-router-dom';
 import { changePassword } from "../service/ChangePass";
-
-
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -49,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ChangePasswordScreen = () => {
     const classes = useStyles();
+    const type = useSelector((state) => state.type);
 
     const navigate = useNavigate();
 
@@ -58,15 +58,15 @@ const ChangePasswordScreen = () => {
 
     const onSubmit = async(data) => {
         const user = await changePassword(data)
-        if (user.data.success ===  true) {
-            navigate("/login")
+        
+        if (user.success && (type[0])) {
+            navigate(`/${type}`)
+        }else if((user.success) && (!type[0])){
+            navigate(`/chooseUser`)
         }else{
             alert("Error de cambio de Password")
         }
-        
-
     }
-
 
     return (
         <>

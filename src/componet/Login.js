@@ -66,9 +66,9 @@ export default function SignIn() {
 
   const onSubmit = async(data, e) => {
     e.preventDefault();
-    await loginRegister(data).then((data) => {
-      setErrMessage(data);
-    });
+    const respuestaClusterby = await loginRegister(data)
+      setErrMessage(respuestaClusterby);
+      if(!respuestaClusterby.success) return alert(respuestaClusterby.message)
 
     userSearch().then((res)=> res.user).then(res =>{
       console.log(res)

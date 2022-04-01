@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 
 function App() {
   const type = useSelector((state) => state.type);
-  console.log(type)
 
   useEffect(() => {
     persistence();
