@@ -1,13 +1,16 @@
 import axios from "axios";
 
-export const selectUserType = async (data) => {
-    // axios.post(pedido a la api enviando la data "tipo de usuario" + el token)
+export const selectUserType = async (tipo) => {
 
-    const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
+  const tokenSL = JSON.parse(localStorage.getItem("tokenLogin"));
 
-  console.log(data + " " + tokenLS);
-
-  
-
-
+  try {
+    const res = axios.put("http://localhost:3005/user/update/type", {
+      token: tokenSL,
+      type: tipo
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
 };

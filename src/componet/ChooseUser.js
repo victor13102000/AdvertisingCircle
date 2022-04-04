@@ -4,8 +4,12 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import { selectUserType } from "../service/SelectUserType";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setType } from "../states/Type";
 import imagePublisher from "../assets/publisher.jpg";
 import imageAdvertiser from "../assets/advertiser.jpg";
+import axios from "axios";
+
 
 const images = [
   {
@@ -26,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     minWidth: 300,
     width: "80%",
-    position:"absolute",
-    transform: "translate(0, 100%)"
+    position: "absolute",
+    transform: "translate(0, 100%)",
   },
   image: {
     position: "relative",
@@ -98,23 +102,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ButtonBases() {
-    const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const classes = useStyles();
 
-    function handleClick(tipo){
-        tipo = tipo.toLowerCase()
-        selectUserType(tipo)
+  function handleClick(tipo) {
+    tipo = tipo.toLowerCase();
 
-        navigate(`/${tipo}`)
-
-    }
-
-
+    selectUserType(tipo);
+    dispatch(setType(tipo))
+    
+    navigate(`/${tipo}`);
+  }
 
   return (
     <div className="contenedorChooser">
-        <h1>Pick your role...</h1>
+      <h1>Pick your role...</h1>
       <div className={classes.root}>
         {images.map((image) => (
           <ButtonBase

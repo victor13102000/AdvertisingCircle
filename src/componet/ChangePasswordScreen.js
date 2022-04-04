@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {useRef} from 'react'
 import {
     Avatar,
     Button,
@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from 'react-router-dom';
 import { changePassword } from "../service/ChangePass";
-
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,22 +48,25 @@ const useStyles = makeStyles((theme) => ({
 
 const ChangePasswordScreen = () => {
     const classes = useStyles();
+    const type = useSelector((state) => state.type);
 
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    const password = useRef({});
+    password.current = watch("password", "");
 
-    const onSubmit = (data) => {
-        if (data.password === data.confirmpassword) {
-            const userData = changePassword(data);
-            console.log(userData);
-            navigate("/login")
-        } else {
-            console.log("Las claves no coinciden")
+    const onSubmit = async(data) => {
+        const user = await changePassword(data)
+        
+        if (user.success && (type[0])) {
+            navigate(`/${type}`)
+        }else if((user.success) && (!type[0])){
+            navigate(`/chooseUser`)
+        }else{
+            alert("Error de cambio de Password")
         }
-
     }
-
 
     return (
         <>
@@ -126,11 +129,10 @@ const ChangePasswordScreen = () => {
                                 <TextField
 
                                     {...register("password", {
-                                        required: "This is required.",
-                                        minLength: 8,
-
-
-
+                                        minLength: {
+                                            value: 8,
+                                            message: "Password must have at least 8 characters"
+                                          }
                                     })}
                                     variant="outlined"
                                     required
@@ -144,18 +146,15 @@ const ChangePasswordScreen = () => {
                                 <ErrorMessage
                                     errors={errors}
                                     name="password"
-                                    render={() => <p>password must be at least 8 character long </p>}
+                                    render={errors.password && <p>{errors.password.message}</p>}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
 
                                     {...register("confirmpassword", {
-                                        required: "This is required.",
-                                        minLength: 8,
-
-
-
+                                        validate: value =>
+                                            value === password.current || "The passwords do not match"
                                     })}
                                     variant="outlined"
                                     required
@@ -169,7 +168,7 @@ const ChangePasswordScreen = () => {
                                 <ErrorMessage
                                     errors={errors}
                                     name="confirmpassword"
-                                    render={() => <p>password must be at least 8 character long </p>}
+                                    render={errors.password_repeat && <p>{errors.password_repeat.message}</p>}
                                 />
                             </Grid>
 
@@ -195,7 +194,7 @@ const ChangePasswordScreen = () => {
                     Something here to give the footer a purpose!
                 </Typography>
                 <Typography variant="body2" color="textSecondary" align="center">
-                    {'Copyright © '}
+                    {'Copyright Â© '}
                     <Link color="inherit" href="https://mui.com/">
                         Your Website
                     </Link>{' '}

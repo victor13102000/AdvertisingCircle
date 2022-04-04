@@ -12,12 +12,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
-
-import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link as Linked } from "react-router-dom";
 import { Link } from "@material-ui/core";
 import { loginRegister } from "../service/LoginRegister";
+import { userSearch } from "../service/LoginRegister";
+import { useDispatch } from "react-redux";
+import { setType } from "../states/Type";
 
 function Copyright() {
   return (
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const [errMessage, setErrMessage] = useState();
-
+  const dispatch = useDispatch();
   const classes = useStyles();
   const {
     register,
@@ -63,18 +64,19 @@ export default function SignIn() {
   } = useForm();
   const navigate = useNavigate();
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async(data, e) => {
     e.preventDefault();
-    loginRegister(data).then((data) => {
-      console.log(data)
-      setErrMessage(data);
-      
-      /* Pedido get a la Api para saber si el usuario existe en la coleccion users y si existe, si tiene un tipo de usuario.
-      Condicional frente a la respuesta:
-      - Si no existe, redireccionamos a la ruta /chooseUser para poder crear ese registro con tipo de usuario incluido.
-      - Si existe, redireccionamos a la ruta /publisher / /advertiser de acuerdo al tipo de usuario que devuelve la respuesta */
+    const respuestaClusterby = await loginRegister(data)
+      setErrMessage(respuestaClusterby);
+      if(!respuestaClusterby.success) return alert(respuestaClusterby.message)
 
-      data.success && navigate("/chooseUser");
+    userSearch().then((res)=> res.user).then(res =>{
+      console.log(res)
+      if (res.type) {
+        dispatch(setType(res.type))
+        navigate(`/${res.type}`)
+    }
+      else {navigate("/chooseUser")};
     });
   };
 
@@ -135,7 +137,9 @@ export default function SignIn() {
               <Linked to="/register">{"Don't have an account? Sign Up"}</Linked>
             </Grid>
             <Grid item>
-              <Linked to="/requestpasswordchange">{"Can´t remember your passworkd? Ask for a new one"}</Linked>
+              <Linked to="/requestpasswordchange">
+                {"Can´t remember your passworkd? Ask for a new one"}
+              </Linked>
             </Grid>
           </Grid>
         </form>

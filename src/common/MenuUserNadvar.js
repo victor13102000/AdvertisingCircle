@@ -4,6 +4,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { LogoutFunction } from "../service/LogoutFunction";
 import { useNavigate } from "react-router";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MenuUserNadvar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -16,7 +17,7 @@ const MenuUserNadvar = () => {
     navigate("/");
   };
   return (
-    <>
+    <><Link to= "/profile" style={{ textDecoration: 'none'}}>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -28,6 +29,7 @@ const MenuUserNadvar = () => {
         </IconButton>
         Profile
       </MenuItem>
+      </Link>
       <MenuItem onClick={logoutFunction}>Logout</MenuItem>
     </>
   );
