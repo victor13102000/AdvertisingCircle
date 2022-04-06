@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { campaignCreate } from "../service/CampaingCreate";
 
 function Campaign() {
   const { register, handleSubmit } = useForm();
@@ -12,8 +12,8 @@ function Campaign() {
   const dia = data.getDate();
   const año = data.getFullYear();
 
-  const hoy = `${año}-${mes.toString().length == 1 ? `0${mes}` : mes}-${
-    dia.toString().length == 1 ? `0${dia}` : dia
+  const hoy = `${año}-${mes.toString().length === 1 ? `0${mes}` : mes}-${
+    dia.toString().length === 1 ? `0${dia}` : dia
   }`;
 
   const [day, setDay] = useState(hoy);
@@ -21,6 +21,7 @@ function Campaign() {
   const onSubmit = async (data, e) => {
     e.preventDefault();
     console.log(data);
+    campaignCreate(data);
   };
 
   return (

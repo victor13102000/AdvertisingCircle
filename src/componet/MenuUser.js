@@ -11,6 +11,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { LogoutFunction } from "../service/LogoutFunction";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const StyledMenu = withStyles({
   paper: {
@@ -59,6 +60,9 @@ export default function CustomizedMenus() {
   };
 
   const userLS = atob(JSON.parse(localStorage.getItem("user")));
+  /* const typeLS = JSON.parse(localStorage.getItem("type"));
+  console.log(typeLS); */
+
 
   return (
     <div>
@@ -96,6 +100,15 @@ export default function CustomizedMenus() {
             </Link>
           </ListItemIcon>
         </StyledMenuItem>
+        
+        {/* {typeLS === "advertiser" && <StyledMenuItem>
+          <ListItemIcon>
+            <Link to={"/newCampaign"} style={{ textDecoration: 'none'}}>
+              <ListItemText onClick={handleClose} primary="Create campaign" />
+            </Link>
+          </ListItemIcon>
+        </StyledMenuItem>} */}
+
         <StyledMenuItem>
           <ListItemIcon>
             <ListItemText onClick={logoutFunction} primary="Logout" />
