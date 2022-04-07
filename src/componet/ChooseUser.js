@@ -112,7 +112,7 @@ export default function ButtonBases() {
 
     selectUserType(tipo);
     dispatch(setType(tipo))
-    
+    localStorage.setItem("type", tipo)
     navigate(`/${tipo}`);
   }
 

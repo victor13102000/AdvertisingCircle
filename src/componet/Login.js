@@ -74,6 +74,7 @@ export default function SignIn() {
       console.log(res)
       if (res.type) {
         dispatch(setType(res.type))
+        localStorage.setItem("type", res.type)
         navigate(`/${res.type}`)
     }
       else {navigate("/chooseUser")};
