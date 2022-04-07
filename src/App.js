@@ -13,6 +13,7 @@ import ChooseUser from "./componet/ChooseUser"
 import Advertiser from "./componet/Advertiser"
 import Publisher from "./componet/Publisher"
 import Profile from "./componet/Profile";
+import Campaign from "./componet/CreateCampaing";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/advertiser" element={type === "advertiser"? <Advertiser/>: <h1>ERROR</h1>} />
         <Route path="/publisher" element={type === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
         <Route path= "/profile" element={<Profile/>}/>
+        <Route path="/newCampaign" element={<Campaign/>} />
       </Routes>
     </div>
   );
