@@ -14,6 +14,7 @@ import Advertiser from "./componet/Advertiser"
 import Publisher from "./componet/Publisher"
 import Profile from "./componet/Profile";
 import Campaign from "./componet/CreateCampaing";
+import EditCampaign from "./componet/EditCampaing";
 
 
 function App () {
@@ -42,6 +43,7 @@ console.log(typeLS);
         <Route path="/publisher" element={typeLS === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
         <Route path= "/profile" element={<Profile/>}/>
         <Route path="/newCampaign" element={<Campaign/>} />
+        <Route path="/editCampaign" element={<EditCampaign/>} />
       </Routes>
     </div>
   );
