@@ -5,6 +5,7 @@ const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
 const removeLocalStorage = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("tokenLogin");
+  localStorage.removeItem("type")
 };
 
 export const LogoutFunction = () => {

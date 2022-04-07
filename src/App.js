@@ -14,11 +14,13 @@ import Advertiser from "./componet/Advertiser"
 import Publisher from "./componet/Publisher"
 import Profile from "./componet/Profile";
 import Campaign from "./componet/CreateCampaing";
-import { useSelector } from "react-redux";
 
-function App() {
-  const type = useSelector((state) => state.type);
 
+function App () {
+  
+  const typeLS = JSON.parse(JSON.stringify(localStorage.getItem("type")))
+
+console.log(typeLS);
   useEffect(() => {
     persistence();
     
@@ -36,8 +38,8 @@ function App() {
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
         <Route path = "/chooseUser" element = {<ChooseUser/>}/>
-        <Route path="/advertiser" element={type === "advertiser"? <Advertiser/>: <h1>ERROR</h1>} />
-        <Route path="/publisher" element={type === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
+        <Route path="/advertiser" element={typeLS === "advertiser"? <Advertiser/>: <h1>ERROR</h1>} />
+        <Route path="/publisher" element={typeLS === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
         <Route path= "/profile" element={<Profile/>}/>
         <Route path="/newCampaign" element={<Campaign/>} />
       </Routes>
