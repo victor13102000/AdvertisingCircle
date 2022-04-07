@@ -111,6 +111,14 @@ export default function CustomizedMenus() {
 
         <StyledMenuItem>
           <ListItemIcon>
+            <Link to={"/newCampaign"} style={{ textDecoration: 'none'}}>
+              <ListItemText onClick={handleClose} primary="Create campaign" />
+            </Link>
+          </ListItemIcon>
+        </StyledMenuItem>
+
+        <StyledMenuItem>
+          <ListItemIcon>
             <ListItemText onClick={logoutFunction} primary="Logout" />
           </ListItemIcon>
         </StyledMenuItem>
