@@ -14,16 +14,17 @@ import Advertiser from "./componet/Advertiser"
 import Publisher from "./componet/Publisher"
 import Profile from "./componet/Profile";
 import Campaign from "./componet/CreateCampaing";
+import GridScreen from "./componet/GridScreen";
 
 
-function App () {
-  
+function App() {
+
   const typeLS = JSON.parse(JSON.stringify(localStorage.getItem("type")))
 
-console.log(typeLS);
+  console.log(typeLS);
   useEffect(() => {
     persistence();
-    
+
   }, []);
 
   return (
@@ -37,11 +38,11 @@ console.log(typeLS);
         <Route path="/login" element={<SignIn />} />
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
-        <Route path = "/chooseUser" element = {<ChooseUser/>}/>
-        <Route path="/advertiser" element={typeLS === "advertiser"? <Advertiser/>: <h1>ERROR</h1>} />
-        <Route path="/publisher" element={typeLS === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
-        <Route path= "/profile" element={<Profile/>}/>
-        <Route path="/newCampaign" element={<Campaign/>} />
+        <Route path="/chooseUser" element={<ChooseUser />} />
+        <Route path="/advertiser" element={typeLS === "advertiser" ? <GridScreen /> : <h1>ERROR</h1>} />
+        <Route path="/publisher" element={typeLS === "publisher" ? <Publisher /> : <h1>ERROR</h1>} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/newCampaign" element={<Campaign />} />
       </Routes>
     </div>
   );
