@@ -70,6 +70,24 @@ export default function CenteredGrid() {
       .then(()=> navigate('/advertiser'));
   };
 
+  function diferenciaDeDias(){
+  const today = new Date();
+  const init = new Date(campaignInit)
+  const end = new Date(campaignEnd)
+  let days;
+
+  if(campaign.state === "Created"){
+      const difference =  init.getTime() - today.getTime()
+      days = difference/(1000 * 3600 * 24)
+  }else{
+    const difference =  end.getTime() - today.getTime()
+    days = difference/(1000 * 3600 * 24)
+  }
+
+  return Math.round(days)
+
+  }
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -137,19 +155,20 @@ export default function CenteredGrid() {
         <Grid item xs={3}>
           <Paper className={classes.paper}>
             Beginning: <br />{" "}
-            <Moment format="MMMM Do, YYYY">{campaign.startDate}</Moment>
+            <Moment format="MMMM Do, YYYY">{campaignInit}</Moment>
           </Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>
             Ends: <br />{" "}
-            <Moment format="MMMM Do, YYYY">{campaign.startEnd}</Moment>
+            <Moment format="MMMM Do, YYYY">{campaignEnd}</Moment>
           </Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>
             State campaign: <br />
-            {campaign.state}
+            {campaign.state} <br/>
+            {campaign.state === "Created" ? (`${diferenciaDeDias()} until this campaign starts.` ):(campaign.state === "In Progress" && (`${diferenciaDeDias()} until this campaign finishes.` )) }
           </Paper>
         </Grid>
       </Grid>

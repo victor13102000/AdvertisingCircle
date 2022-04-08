@@ -127,8 +127,7 @@ export default function PrimarySearchAppBar() {
               AdPolygon
             </Typography>
           </Link>
-
-          {/*   <Search/> */}
+          {type === "publisher" && <Search/>}
           <div className={classes.grow} />
           {userLS === null ? (
             <>
