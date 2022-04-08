@@ -60,8 +60,7 @@ export default function CustomizedMenus() {
   };
 
   const userLS = atob(JSON.parse(localStorage.getItem("user")));
-  /* const typeLS = JSON.parse(localStorage.getItem("type"));
-  console.log(typeLS); */
+  const type = localStorage.getItem('type')
 
 
   return (
@@ -101,22 +100,13 @@ export default function CustomizedMenus() {
           </ListItemIcon>
         </StyledMenuItem>
         
-        {/* {typeLS === "advertiser" && <StyledMenuItem>
+        {type === "advertiser" && <StyledMenuItem>
           <ListItemIcon>
             <Link to={"/newCampaign"} style={{ textDecoration: 'none'}}>
               <ListItemText onClick={handleClose} primary="Create campaign" />
             </Link>
           </ListItemIcon>
-        </StyledMenuItem>} */}
-
-        <StyledMenuItem>
-          <ListItemIcon>
-            <Link to={"/newCampaign"} style={{ textDecoration: 'none'}}>
-              <ListItemText onClick={handleClose} primary="Create campaign" />
-            </Link>
-          </ListItemIcon>
-        </StyledMenuItem>
-
+        </StyledMenuItem>}
         <StyledMenuItem>
           <ListItemIcon>
             <ListItemText onClick={logoutFunction} primary="Logout" />

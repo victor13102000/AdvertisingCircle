@@ -2,8 +2,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import React from "react";
-
-
+import useInput from "../hooks/useInput"
 
 const useStyles = makeStyles((theme) => ({
    
@@ -47,19 +46,31 @@ const useStyles = makeStyles((theme) => ({
    
   }));
 const Search = ()=>{
+    const search = useInput()
     const classes = useStyles();
+
+    function handleSubmit(e){
+      e.preventDefault()
+      
+      e.target[0].value = ""
+    }
+    
     return <div className={classes.search}>
     <div className={classes.searchIcon}>
-      <SearchIcon />
+    <SearchIcon />
     </div>
-    <InputBase
+    <form onSubmit={handleSubmit}>
+      <InputBase
+      {...search}
       placeholder="Search…"
       classes={{
         root: classes.inputRoot,
         input: classes.inputInput,
       }}
       inputProps={{ "aria-label": "search" }}
-    />
+      />
+    </form>
+    
   </div> 
 }
 
