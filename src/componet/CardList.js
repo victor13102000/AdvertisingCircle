@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import MyCard2 from './MyCard2'
 import usePagination from "./Pagination";
 
+
 const CardList = ({ items }) => {
 
     const [page, setPage] = useState(1);

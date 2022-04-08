@@ -53,7 +53,9 @@ export default function PrimarySearchAppBar() {
   const userLS = JSON.parse(localStorage.getItem("user"));
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const type = useSelector((state) => state.type);
+  const type = localStorage.getItem('type')
+
+  console.log(type)
 
   const logoutFunction = () => {
     LogoutFunction();
