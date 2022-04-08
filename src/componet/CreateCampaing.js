@@ -6,6 +6,7 @@ function Campaign() {
   const { register, handleSubmit } = useForm();
 
   const [type, setType] = useState("");
+  const [edad, setEdad] = useState(18);
 
   const data = new Date();
   const mes = data.getMonth() + 1;
@@ -111,7 +112,7 @@ function Campaign() {
                   </div>
                   <div className="form-group col-md-3">
                     <label>Language</label>
-                    <select {...register("language")} class="form-control">
+                    <select {...register("language")} className="form-control">
                       <option selected>Choose...</option>
                       <option>Spanish</option>
                       <option>English</option>
@@ -129,14 +130,27 @@ function Campaign() {
                     <option selected>Choose...</option>
                     <option>Male</option>
                     <option>Female</option>
+                    <option>Both</option>
                   </select>
                 </div>
-                <div className="form-group col-md-6">
-                  <label>Age of publisher</label>
+                <div className="form-group col-md-3">
+                  <label>Age min of publisher</label>
                   <input
-                    {...register("agePublisher")}
-                    className="form-control"
-                  />
+                      {...register("ageMin")}
+                      type="number"
+                      min={18}
+                      onChange={(data) => setEdad(data.target.value)}
+                      className="form-control"
+                    />
+                </div>
+                <div className="form-group col-md-3">
+                  <label>Age max of publisher</label>
+                  <input
+                      {...register("ageMax")}
+                      type="number"
+                      min={edad}
+                      className="form-control"
+                    />
                 </div>
               </div>
             )}
@@ -152,7 +166,7 @@ function Campaign() {
                 </div>
               </div>
             )}
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               Send
             </button>
           </form>
