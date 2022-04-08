@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const MyCard2 = ({ item }) => {
 
-
+console.log(item)
 
     return (
 
@@ -17,17 +17,17 @@ const MyCard2 = ({ item }) => {
             },
         }}>
             <CardActionArea>
-                <Link to="/campaign" style={{ textDecoration: 'inherit', color: "inherit" }}>
+                <Link to={`/simpleview/${item._id}`} style={{ textDecoration: 'inherit', color: "inherit" }}>
                     <CardMedia
                         component="img"
                         height="200"
-                        image="https://dummyjson.com/image/i/products/1/thumbnail.jpg"
+                        image="https://media-cdn.tripadvisor.com/media/photo-s/1d/30/9e/c1/full-suite-digital-branding.jpg"
                         alt={item.description}
                     />
 
                     <CardContent style={{ height: "180px" }}>
                         <Typography gutterBottom variant="h5" component="div">
-                            {item.description}
+                            {item.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {item.description}
@@ -37,7 +37,6 @@ const MyCard2 = ({ item }) => {
             </CardActionArea>
             <CardActions style={{ display: "flex", margin: "0 10px", justifyContent: "space-between" }}>
                 <Box style={{ display: "flex" }}>
-                    <Avatar src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80" />
                     <Box ml={2}>
                         <Typography variant="subtitle2" component="p" style={{ textTransform: 'capitalize' }}>
                             {item.advertiser}
@@ -48,7 +47,9 @@ const MyCard2 = ({ item }) => {
                     </Box>
                 </Box>
                 <Box>
-                    <BookmarkBorderIcon />
+                    {item.state === 'Created' &&   <Typography  style={{ backgroundColor: "yellow" , padding: "5px", borderRadius: '5px', color: "black"}} >{item.state}</Typography>}
+                    {item.state === 'In Progress' &&   <Typography  style={{ backgroundColor: "green", padding: "5px", borderRadius: '5px', color: "black" }} >{item.state}</Typography>}
+                    {item.state === 'Finished' &&   <Typography  style={{ backgroundColor: "red", padding: "5px", borderRadius: '5px', color: "black" }} >{item.state}</Typography>}
                 </Box>
             </CardActions>
 

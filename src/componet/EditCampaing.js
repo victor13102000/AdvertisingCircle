@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {campaignGet, campaingEdite} from "../service/CampaingEdite"
+import { useParams } from "react-router-dom";
 function EditCampaign() {
   const { register, handleSubmit } = useForm();
 
@@ -14,7 +15,6 @@ function EditCampaign() {
   const mes = data.getMonth() + 1;
   const dia = data.getDate();
   const año = data.getFullYear();
-
   const hoy = `${año}-${mes.toString().length === 1 ? `0${mes}` : mes}-${
     dia.toString().length === 1 ? `0${dia}` : dia
   }`;
@@ -22,7 +22,7 @@ function EditCampaign() {
   const [day, setDay] = useState(hoy);
   const [edad, setEdad] = useState(18);
 
-  const id = "624f67191a58b2f62b1ccb03"
+  const id = useParams()
 
   useEffect(async () => {
     const datos = await campaignGet(id)

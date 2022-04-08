@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { campaignCreate } from "../service/CampaingCreate";
+import { useNavigate } from "react-router-dom";
 
 function Campaign() {
   const { register, handleSubmit } = useForm();
-
+  const navigate= useNavigate()
   const [type, setType] = useState("");
   const [edad, setEdad] = useState(18);
 
@@ -21,8 +22,8 @@ function Campaign() {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    console.log(data);
     campaignCreate(data);
+    navigate('/advertiser')
   };
 
   return (

@@ -11,14 +11,14 @@ const GridScreen = () => {
 
 
     useEffect(() => {
-        axios.post('http://localhost:3005/campaign/advertisercampaigns', { token })
+        axios.post('http://localhost:3005/campaign/advertiserCampaigns', { token })
             .then(res => setItems(res.data.campaigns))
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    },[])
 
-    console.log("Aqui deberia de salir items")
+
     console.log(items);
 
 
@@ -30,7 +30,7 @@ const GridScreen = () => {
                 <Typography variant="h4" style={{ fontWeight: 800, paddingBottom: "5px" }}>
                     Campaigns
                 </Typography>
-
+                
                 <CardList items={items} />
 
             </Container>

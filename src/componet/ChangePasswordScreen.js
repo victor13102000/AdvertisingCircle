@@ -146,7 +146,7 @@ const ChangePasswordScreen = () => {
                                 <ErrorMessage
                                     errors={errors}
                                     name="password"
-                                    render={errors.password && <p>{errors.password.message}</p>}
+                                    render={({ message }) => <p>{message}</p>}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -168,7 +168,7 @@ const ChangePasswordScreen = () => {
                                 <ErrorMessage
                                     errors={errors}
                                     name="confirmpassword"
-                                    render={errors.password_repeat && <p>{errors.password_repeat.message}</p>}
+                                    render={({ message }) => <p>{message}</p>}
                                 />
                             </Grid>
 
