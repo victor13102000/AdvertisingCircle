@@ -17,14 +17,14 @@ import Campaign from "./componet/CreateCampaing";
 import EditCampaign from "./componet/EditCampaing";
 
 
-function App () {
-  
+function App() {
+
   const typeLS = JSON.parse(JSON.stringify(localStorage.getItem("type")))
 
-console.log(typeLS);
+  console.log(typeLS);
   useEffect(() => {
     persistence();
-    
+
   }, []);
 
   return (
