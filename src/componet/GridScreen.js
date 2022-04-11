@@ -20,7 +20,7 @@ const GridScreen = () => {
 
 
     console.log(items);
-
+    if(!items[0]) return <h1>You don't have campaigns</h1>
 
     return (
         <>
