@@ -13,6 +13,7 @@ const CardList = ({ items }) => {
     const _DATA = usePagination(items, PER_PAGE);
 
     const handleChange = (e, p) => {
+        e.preventDefault();
         setPage(p);
         _DATA.jump(p);
     };

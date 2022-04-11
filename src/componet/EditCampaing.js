@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {campaignGet, campaingEdite} from "../service/CampaingEdite"
+import { campaignGet, campaingEdite } from "../service/CampaingEdite";
 import { useParams } from "react-router-dom";
 function EditCampaign() {
   const { register, handleSubmit } = useForm();
@@ -22,17 +22,17 @@ function EditCampaign() {
   const [day, setDay] = useState(hoy);
   const [edad, setEdad] = useState(18);
 
-  const id = useParams()
+  const id = useParams();
 
   useEffect(async () => {
-    const datos = await campaignGet(id)
+    const datos = await campaignGet(id);
     console.log(datos);
     if (datos.data.success) {
       setCampaign(datos.data.campaigns);
       setCampaignRules(datos.data.campaigns.rules);
       setCampaignObjetives(datos.data.campaigns.objectives);
-      setCampaignFechas(datos.data.campaigns.startDate.split("T"))
-      setCampaignFechas2(datos.data.campaigns.endDate.split("T"))
+      setCampaignFechas(datos.data.campaigns.startDate.split("T"));
+      setCampaignFechas2(datos.data.campaigns.endDate.split("T"));
     }
   }, []);
 
@@ -40,11 +40,11 @@ function EditCampaign() {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    campaingEdite(data, id)
+    campaingEdite(data, id);
     console.log(data);
   };
   console.log(campaignFechas[0]);
-/* const start = campaign.startDate.split("T")
+  /* const start = campaign.startDate.split("T")
 console.log(start[0]); */
   return (
     <div className="paginaPerfil">
@@ -157,17 +157,14 @@ console.log(start[0]); */
               <div className="form-group col-md-6">
                 <label>Gender</label>
                 <select {...register("gender")} className="form-control">
-                  <option selected>Choose...</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Both</option>
                   <option selected>{campaignRules.gender}</option>
+
                   {campaignRules.gender === "Male" ? (
                     <>
                       <option>Female</option>
                       <option>Male</option>
                     </>
-                  ) : campaignRules.language === "Female" ? (
+                  ) : campaignRules.gender === "Female" ? (
                     <>
                       <option>Both</option>
                       <option>Male</option>
