@@ -4,7 +4,6 @@ import {campaignGet, campaingEdite} from "../service/CampaingEdite"
 import { useParams, useNavigate } from "react-router-dom";
 import { uploadImage } from "../service/UploadImage";
 
-
 function EditCampaign() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate()
@@ -26,14 +25,13 @@ function EditCampaign() {
   const [day, setDay] = useState(hoy);
   const [edad, setEdad] = useState(18);
 
-  const id = useParams()
+  const id = useParams();
 
   useEffect(async () => {
     const datos = await campaignGet(id)
 
     const fechaInicio = datos.data.campaigns.startDate.replace(/\//g,"-")
     const fechaFinal = datos.data.campaigns.endDate.replace(/\//g,"-")
-
 
     if (datos.data.success) {
       setCampaign(datos.data.campaigns);
@@ -166,17 +164,14 @@ function EditCampaign() {
               <div className="form-group col-md-6">
                 <label>Gender</label>
                 <select {...register("gender")} className="form-control">
-                  <option selected>Choose...</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Both</option>
                   <option selected>{campaignRules.gender}</option>
+
                   {campaignRules.gender === "Male" ? (
                     <>
                       <option>Female</option>
                       <option>Male</option>
                     </>
-                  ) : campaignRules.language === "Female" ? (
+                  ) : campaignRules.gender === "Female" ? (
                     <>
                       <option>Both</option>
                       <option>Male</option>

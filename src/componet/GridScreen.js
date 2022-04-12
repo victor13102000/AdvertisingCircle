@@ -36,7 +36,7 @@ const GridScreen = () => {
         </div>
         )
       } else {
-    
+        if(!items[0]) return <h1>You don't have campaigns</h1>
         return (
          <>
             <CssBaseline />
@@ -51,6 +51,7 @@ const GridScreen = () => {
             </Container>
         </>
     )}
+    
 
 /*
     return (
