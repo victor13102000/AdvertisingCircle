@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {campaignGet, campaingEdite} from "../service/CampaingEdite"
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { uploadImage } from "../service/UploadImage";
+
+
 function EditCampaign() {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate()
 
   const [campaign, setCampaign] = useState("");
   const [campaignRules, setCampaignRules] = useState("");
@@ -26,26 +30,31 @@ function EditCampaign() {
 
   useEffect(async () => {
     const datos = await campaignGet(id)
-    console.log(datos);
+
+    const fechaInicio = datos.data.campaigns.startDate.replace(/\//g,"-")
+    const fechaFinal = datos.data.campaigns.endDate.replace(/\//g,"-")
+
+
     if (datos.data.success) {
       setCampaign(datos.data.campaigns);
       setCampaignRules(datos.data.campaigns.rules);
       setCampaignObjetives(datos.data.campaigns.objectives);
-      setCampaignFechas(datos.data.campaigns.startDate.split("T"))
-      setCampaignFechas2(datos.data.campaigns.endDate.split("T"))
+      setCampaignFechas(fechaInicio)
+      setCampaignFechas2(fechaFinal)
     }
   }, []);
 
-  console.log(campaign);
-
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    campaingEdite(data, id)
-    console.log(data);
+    
+    const file = data.img[0]
+    const imgUrl = await uploadImage(file)
+
+    data.img = imgUrl
+
+    campaingEdite(data, id).then(()=> navigate("/advertiser"))
   };
-  console.log(campaignFechas[0]);
-/* const start = campaign.startDate.split("T")
-console.log(start[0]); */
+
   return (
     <div className="paginaPerfil">
       <div className="contenedorPerfil">
@@ -81,7 +90,7 @@ console.log(start[0]); */
                 <label>Start Campaign</label>
                 <input
                   {...register("startDate")}
-                  defaultValue={campaignFechas[0]}
+                  defaultValue={campaignFechas}
                   type="date"
                   min={hoy}
                   onChange={(data) => setDay(data.target.value)}
@@ -93,7 +102,7 @@ console.log(start[0]); */
                 <label>End Campaign</label>
                 <input
                   {...register("endDate")}
-                  defaultValue={campaignFechas2[0]}
+                  defaultValue={campaignFechas2}
                   type="date"
                   min={day}
                   className="form-control"
@@ -210,6 +219,16 @@ console.log(start[0]); */
                   {...register("speech")}
                   defaultValue={campaignRules.speech}
                   placeholder="Speech"
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group col">
+                <label>Campaign Logo</label>
+                <input
+                  {...register("img")}
+                  type = "file"
                   className="form-control"
                 />
               </div>

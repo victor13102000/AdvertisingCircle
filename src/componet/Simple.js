@@ -99,7 +99,7 @@ export default function CenteredGrid() {
             <CardMedia
               component="img"
               height="200"
-              image="https://media-cdn.tripadvisor.com/media/photo-s/1d/30/9e/c1/full-suite-digital-branding.jpg"
+              image={campaign.imgUrl}
             />
           </Paper>
         </Grid>
