@@ -16,6 +16,7 @@ import Campaign from "./componet/CreateCampaing";
 import EditCampaign from "./componet/EditCampaing";
 import Simple from './componet/Simple'
 import Advertiser from './componet/Advertiser'
+import SingleViewPublisher from "./componet/SingleViewPublisher"
 
 
 function App() {
@@ -46,7 +47,8 @@ function App() {
         <Route path= "/profile" element={<Profile/>}/>
         <Route path="/newCampaign" element={<Campaign/>} />
         <Route path="/editCampaign/:id" element={<EditCampaign/>} />
-        <Route path="/simpleview/:id" element={<Simple/>}/>
+        <Route path="/simpleview/:id" element={typeLS === "advertiser"?<Simple/>:<SingleViewPublisher />}/>
+
       </Routes>
     </div>
   );
