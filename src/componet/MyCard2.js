@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom';
 
 const MyCard2 = ({ item }) => {
 
-console.log(item)
-
     return (
 
         <Card sx={{
@@ -21,7 +19,7 @@ console.log(item)
                     <CardMedia
                         component="img"
                         height="200"
-                        image="https://media-cdn.tripadvisor.com/media/photo-s/1d/30/9e/c1/full-suite-digital-branding.jpg"
+                        image={item.imgUrl}
                         alt={item.description}
                     />
 

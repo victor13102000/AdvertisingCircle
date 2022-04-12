@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { campaignCreate } from "../service/CampaingCreate";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { uploadImage } from "../service/UploadImage";
 
 function Campaign() {
   const { register, handleSubmit } = useForm();
@@ -22,9 +24,15 @@ function Campaign() {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+
+    const file = data.img[0]
+    const imgUrl = await uploadImage(file)
+
+    data.img = imgUrl
     campaignCreate(data);
     navigate('/advertiser')
   };
+
 
   return (
     <div className="paginaPerfil">
@@ -162,6 +170,18 @@ function Campaign() {
                   <textarea
                     {...register("speech")}
                     placeholder="Speech"
+                    className="form-control"
+                  />
+                </div>
+              </div>
+            )}
+            {type === "URL" && (
+              <div className="form-row">
+                <div className="form-group col">
+                  <label>Campaign Logo</label>
+                  <input
+                    {...register("img")}
+                    type = "file"
                     className="form-control"
                   />
                 </div>
