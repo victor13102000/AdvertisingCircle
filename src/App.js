@@ -17,6 +17,7 @@ import Campaign from "./componet/CreateCampaing";
 import EditCampaign from "./componet/EditCampaing";
 import Simple from './componet/Simple'
 import GridScreen from './componet/GridScreen'
+import SingleViewPublisher from "./componet/SingleViewPublisher"
 
 
 function App() {
@@ -40,13 +41,14 @@ function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
-        <Route path="/chooseUser" element={<ChooseUser />} />
-        <Route path="/advertiser" element={typeLS === "advertiser" ? <GridScreen /> : <h1>ERROR</h1>} />
-        <Route path="/publisher" element={typeLS === "publisher" ? <Publisher /> : <h1>ERROR</h1>} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/newCampaign" element={<Campaign />} />
-        <Route path="/editCampaign/:id" element={<EditCampaign />} />
-        <Route path="/simpleview/:id" element={<Simple />} />
+        <Route path="/chooseUser" element = {<ChooseUser/>}/>
+        <Route path="/advertiser" element={typeLS === "advertiser" ? <GridScreen/>: <h1>ERROR</h1>} />
+        <Route path="/publisher" element={typeLS === "publisher" ? <Publisher/>: <h1>ERROR</h1>} />
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/newCampaign" element={<Campaign/>} />
+        <Route path="/editCampaign/:id" element={<EditCampaign/>} />
+        <Route path="/simpleview/:id" element={typeLS === "advertiser"?<Simple/>:<SingleViewPublisher />}/>
+
       </Routes>
     </div>
   );
