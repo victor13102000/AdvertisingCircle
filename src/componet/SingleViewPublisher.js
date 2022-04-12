@@ -30,7 +30,7 @@ export default function CenteredGrid() {
   const [campaignObjetives, setCampaignObjetives] = useState("");
   const [campaignInit, setCampaignInit] = useState("");
   const [campaignEnd, setCampaignEnd] = useState("");
-  const [fav, setFav] = useState([]);
+  
 
   useEffect(async () => {
     const datos = await axios.post(
@@ -49,17 +49,19 @@ export default function CenteredGrid() {
     }
   }, []);
 
-  const onSubmit =() => {
-    axios.post("http://localhost:3005/campaign/addtofavorite", {
-      token: token,
-      nameCampaign: campaign.name,
-    }).then(()=>swal({text:"Add to favorite",icon: "success"}))
-    .catch(()=>swal({
-        title: "ERROR",
-        text:"This campaign has already been added",
-        
-    } ))
-
+  const onSubmit = () => {
+    axios
+      .post("http://localhost:3005/campaign/addtofavorite", {
+        token: token,
+        nameCampaign: campaign.name,
+      })
+      .then(() => swal({ text: "Add to favorite", icon: "success" }))
+      .catch(() =>
+        swal({
+          title: "ERROR",
+          text: "This campaign has already been added",
+        })
+      );
   };
 
   function diferenciaDeDias() {
@@ -88,7 +90,11 @@ export default function CenteredGrid() {
               <CardMedia
                 height="525"
                 component="img"
-                image="https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2018/08/helado-en-forma-de-perritos-arrugados-taiwan.jpg"
+                image={
+                  campaign.imgUrl
+                    ? campaign.imgUrl
+                    : "https://jovenclubnuevitas2.cubava.cu/wp-content/themes/childcare/images/default.png"
+                }
               />
             </Paper>
           </Grid>
