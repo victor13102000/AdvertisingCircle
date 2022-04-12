@@ -1,16 +1,19 @@
 import axios from "axios";
+import moment from "moment";
 
 export const campaingEdite = async (data, id) => {
   const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
 
-  const infoCampaing1 = await await axios.post(
+  const infoCampaing1 = await axios.post(
     "http://localhost:3005/campaign/specific",
     { token: tokenLS, id }
   );
+
+  console.log("la que recibe por parametro" + data)
   
   const infoCampaing = infoCampaing1.data.campaigns;
-  console.log(infoCampaing);
-  console.log(data);
+  console.log("la que trae de la base de datos" + infoCampaing)
+
   const info = {
     URL_objetivo:
       data.URL_objetivo != "" ? data.URL_objetivo : infoCampaing.objectives.URL_objetivo,
@@ -29,9 +32,11 @@ export const campaingEdite = async (data, id) => {
     speech: data.speech != "" ? data.speech : infoCampaing.rules.speech,
     startDate: data.startDate != "" ? data.startDate : infoCampaing.startDate,
     type: data.type != "" ? data.type : infoCampaing.type,
+    imgUrl: data.img != "" ? data.img : infoCampaing.imgUrl
   };
 
-    console.log(info);
+  console.log(info)
+
   try {
     const res = await axios.put("http://localhost:3005/campaign/update", {
       token: tokenLS,
@@ -48,7 +53,7 @@ export const campaignGet = async (id) => {
   const tokenLS = JSON.parse(localStorage.getItem("tokenLogin"));
 
   try {
-    const res = await await axios.post(
+    let res = await axios.post(
       "http://localhost:3005/campaign/specific",
       { token: tokenLS, id }
     );
