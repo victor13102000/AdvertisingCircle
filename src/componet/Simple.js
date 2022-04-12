@@ -99,7 +99,11 @@ export default function CenteredGrid() {
             <CardMedia
               component="img"
               height="200"
-              image={campaign.imgUrl}
+              image={
+                campaign.imgUrl
+                  ? campaign.imgUrl
+                  : "https://jovenclubnuevitas2.cubava.cu/wp-content/themes/childcare/images/default.png"
+              }
             />
           </Paper>
         </Grid>
