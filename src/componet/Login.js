@@ -70,6 +70,7 @@ export default function SignIn() {
       setErrMessage(respuestaClusterby);
       if(!respuestaClusterby.success) return alert(respuestaClusterby.message)
 
+    /*
     userSearch().then((res)=> res.user).then(res =>{
       console.log(res)
       if (res.type) {
@@ -79,6 +80,16 @@ export default function SignIn() {
     }
       else {navigate("/chooseUser")};
     });
+    */
+   const {user} = await userSearch()
+   if(user.type){
+    localStorage.setItem("type", user.type)
+    dispatch(setType(user.type))
+    navigate(`/${user.type}`)
+  }else{
+    navigate("/chooseUser")
+  }
+
   };
 
   return (

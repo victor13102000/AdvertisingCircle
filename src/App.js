@@ -17,15 +17,16 @@ import EditCampaign from "./componet/EditCampaing";
 import Simple from './componet/Simple'
 import Advertiser from './componet/Advertiser'
 import SingleViewPublisher from "./componet/SingleViewPublisher"
-
+import { useSelector } from "react-redux";
 
 function App() {
-  const [typeLS, setTypeLS] = useState("")
+  //const [type, setType] = useState("")
+  const typeLS = useSelector(state => state.type)
   
 
-  useEffect(async() => {
+  useEffect(() => {
     persistence();
-    await setTypeLS(JSON.parse(JSON.stringify(localStorage.getItem("type"))))
+    //setType(JSON.parse(JSON.stringify(localStorage.getItem("type"))))
 
   }, []);
 
@@ -41,13 +42,13 @@ function App() {
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
         <Route path = "/chooseUser" element = {<ChooseUser/>}/>
-        <Route path="/advertiser" element={typeLS === "advertiser"? <Advertiser/>: <h1>ERROR</h1>} />
-        <Route path="/publisher" element={typeLS === "publisher"? <Publisher/>: <h1>ERROR</h1>} />
-        <Route path= "/publisher/:query" element={typeLS === "publisher"? <Publisher/>: <h1>ERROR</h1>}/>
+        <Route path="/advertiser" element={(typeLS === "advertiser") ? <Advertiser/>: <h1>ERROR</h1>} />
+        <Route path="/publisher" element={typeLS === "publisher" ? <Publisher/>: <h1>ERROR</h1>} />
+        <Route path= "/publisher/:query" element={typeLS === "publisher" ? <Publisher/>: <h1>ERROR</h1>}/>
         <Route path= "/profile" element={<Profile/>}/>
         <Route path="/newCampaign" element={<Campaign/>} />
         <Route path="/editCampaign/:id" element={<EditCampaign/>} />
-        <Route path="/simpleview/:id" element={typeLS === "advertiser"?<Simple/>:<SingleViewPublisher />}/>
+        <Route path="/simpleview/:id" element={typeLS === "advertiser" ?<Simple/>:<SingleViewPublisher />}/>
 
       </Routes>
     </div>
