@@ -6,16 +6,25 @@ import CardList from './CardList';
 import Message from './Message';
 
 const Publisher = () => {
-
+    const [isLoading, setLoading] = useState(true);
+    const {query} = useParams()
     const [items, setItems] = useState([]);
     const [completeUserInfo, setCompleteUserInfo] = useState(false)
 
     const token = JSON.parse(localStorage.getItem("tokenLogin"))
 
-
     useEffect(() => {
-        axios.post('http://localhost:3005/campaign/filterCampagns', { token })
+        if(query){
+            axios.post("http://localhost:3005/campaign/publisherSpecificSearch", { token: token, nameSearchFor: query})
+            .then(res => setItems(res.data.campaigns))
+            .then(()=> setLoading(false))
+            .catch((err) => {
+                console.log(err)
+            })
+        }else{
+            axios.post('http://localhost:3005/campaign/filterCampagns', { token })
             .then(res => setItems(res.data.campañas))
+            .then(()=> setLoading(false))
             .catch((err) => {
                 console.log(err)
             })

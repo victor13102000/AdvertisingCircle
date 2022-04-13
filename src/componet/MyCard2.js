@@ -19,7 +19,11 @@ const MyCard2 = ({ item }) => {
                     <CardMedia
                         component="img"
                         height="200"
-                        image={item.imgUrl}
+                        image={
+                            item.imgUrl
+                              ? item.imgUrl
+                              : "https://jovenclubnuevitas2.cubava.cu/wp-content/themes/childcare/images/default.png"
+                          }
                         alt={item.description}
                     />
 

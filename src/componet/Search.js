@@ -2,9 +2,11 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import useInput from "../hooks/useInput"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 const useStyles = makeStyles((theme) => ({
+
    
     search: {
       position: "relative",
@@ -46,13 +48,21 @@ const useStyles = makeStyles((theme) => ({
    
   }));
 const Search = ()=>{
-    const search = useInput()
+    const [value, setValue] = useState("")
     const classes = useStyles();
+    const navigate = useNavigate()
+
+    function onChange(e){
+      setValue(e.target.value)
+    }
 
     function handleSubmit(e){
       e.preventDefault()
-      
+      const searchValue = value
       e.target[0].value = ""
+      
+      navigate(`/publisher/${searchValue}`)
+      
     }
     
     return <div className={classes.search}>
@@ -61,7 +71,7 @@ const Search = ()=>{
     </div>
     <form onSubmit={handleSubmit}>
       <InputBase
-      {...search}
+      onChange= {onChange}
       placeholder="Search…"
       classes={{
         root: classes.inputRoot,
