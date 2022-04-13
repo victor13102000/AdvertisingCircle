@@ -26,8 +26,12 @@ console.log(completeUserInfo)
             })
 
         if (query) {
+            
             axios.post("http://localhost:3005/campaign/publisherSpecificSearch", { token: token, nameSearchFor: query })
-                .then(res => setItems(res.data.campañas))
+                .then(res => {
+                    console.log(res)
+                    setItems(res.data.campaigns)
+                })
                 .then(() => setLoading(false))
                 .catch((err) => {
                     console.log(err)
@@ -40,7 +44,9 @@ console.log(completeUserInfo)
                     console.log(err)
                 })
         }
-    }, [])
+    }, [query])
+
+    
 
     return (
         <>

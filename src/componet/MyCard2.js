@@ -11,6 +11,7 @@ import { allUserFavorites } from '../service/BringUserFavorites'
 
 
 const MyCard2 = ({ item }) => {
+    const type = JSON.parse(JSON.stringify(localStorage.getItem("type")))
     
     const [allFavorites, setAllFavorites] = useState([])
     const [favorite, setFavorite] = useState(false)
@@ -72,18 +73,19 @@ const MyCard2 = ({ item }) => {
             </CardActionArea>
             <CardActions style={{ display: "flex", margin: "0 10px", justifyContent: "space-between" }}>
                 <Box style={{ display: "flex" }}>
-                    { ((allFavorites.includes(item._id)) || favorite) ? (
-                        <IconButton onClick={() => handleClickRemove(item._id)} style={{color:"yellow"}} aria-label="remove from favorites">
-                            <StarRoundedIcon />
-                        </IconButton>
-
-                    ):(
-                        <IconButton onClick={() => handleClickAdd(item._id)} aria-label="add to favorites">
-                            <StarRoundedIcon/>
-                        </IconButton>
-                    )
+                    {
+                        type === "publisher" && (
+                            (allFavorites.includes(item._id) || favorite) ? (
+                                <IconButton onClick={() => handleClickRemove(item._id)} style={{color:"yellow", }} aria-label="remove from favorites">
+                                    <StarRoundedIcon />
+                                </IconButton>
+                            ):(
+                                <IconButton onClick={() => handleClickAdd(item._id)} aria-label="add to favorites">
+                                    <StarRoundedIcon/>
+                                </IconButton>
+                            )
+                        )
                     }
-                    
                     <Box ml={2}>
                         <Typography variant="subtitle2" component="p" style={{ textTransform: 'capitalize' }}>
                             {item.advertiser}
