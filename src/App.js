@@ -23,9 +23,9 @@ function App() {
   const [typeLS, setTypeLS] = useState("")
   
 
-  useEffect(() => {
+  useEffect(async() => {
     persistence();
-    setTypeLS(JSON.parse(JSON.stringify(localStorage.getItem("type"))))
+    await setTypeLS(JSON.parse(JSON.stringify(localStorage.getItem("type"))))
 
   }, []);
 

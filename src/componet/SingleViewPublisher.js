@@ -53,7 +53,7 @@ export default function CenteredGrid() {
     axios
       .post("http://localhost:3005/campaign/addtofavorite", {
         token: token,
-        nameCampaign: campaign.name,
+        id: campaign._id,
       })
       .then(() => swal({ text: "Add to favorite", icon: "success" }))
       .catch(() =>
