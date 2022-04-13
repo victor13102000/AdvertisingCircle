@@ -14,7 +14,7 @@ const Publisher = () => {
     const [completeUserInfo, setCompleteUserInfo] = useState(false)
 
     const token = JSON.parse(localStorage.getItem("tokenLogin"))
-
+console.log(completeUserInfo)
     useEffect(() => {
         //Verificar si info de usuario esta completa
         axios.post("http://localhost:3005/user/userInfo", { token })

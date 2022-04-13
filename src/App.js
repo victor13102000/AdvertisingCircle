@@ -18,6 +18,7 @@ import Simple from './componet/Simple'
 import Advertiser from './componet/Advertiser'
 import SingleViewPublisher from "./componet/SingleViewPublisher"
 import { useSelector } from "react-redux";
+import Favorites from "./componet/Favorites";
 
 function App() {
   //const [type, setType] = useState("")
@@ -48,7 +49,8 @@ function App() {
         <Route path= "/profile" element={<Profile/>}/>
         <Route path="/newCampaign" element={<Campaign/>} />
         <Route path="/editCampaign/:id" element={<EditCampaign/>} />
-        <Route path="/simpleview/:id" element={typeLS === "advertiser" ?<Simple/>:<SingleViewPublisher />}/>
+        <Route path="/favorites" element={<Favorites/>}/>
+        <Route path="/simpleview/:id" element={typeLS === "advertiser"?<Simple/>:<SingleViewPublisher />}/>
 
       </Routes>
     </div>
