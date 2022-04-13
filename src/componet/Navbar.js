@@ -55,7 +55,7 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const type = localStorage.getItem('type')
 
-  console.log(type)
+  
 
   const logoutFunction = () => {
     LogoutFunction();
@@ -126,6 +126,9 @@ export default function PrimarySearchAppBar() {
             <Typography className={classes.title} variant="h6" noWrap>
               AdPolygon
             </Typography>
+          </Link>
+          <Link to='/favorites'>
+          <Button>Favorites</Button>
           </Link>
           {type === "publisher" && <Search/>}
           <div className={classes.grow} />
