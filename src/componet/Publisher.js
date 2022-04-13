@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import CardList from './CardList';
 import Message from './Message';
+import { useParams } from 'react-router';
 
 const Publisher = () => {
     const [isLoading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ const Publisher = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }}, [])
 
 
     console.log(items);
