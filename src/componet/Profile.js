@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { profileGet, profileRegister } from "../service/registerFunction";
-import { alertaCorrecta, alertaIncorrecta } from "../common/Alertas";
+import swal from "sweetalert";
 
 
 function Profile(){
@@ -19,10 +19,13 @@ function Profile(){
         e.preventDefault()
         
         profileRegister(data)
-        /*
-        .then(()=> alertaCorrecta()
-        ).catch(err => alertaIncorrecta()
-        )*/
+        swal({
+            title: "user information",
+            icon: "success",
+            button: "ok",
+            text:"information created or edited correctly",
+            timer: 2000
+          })
     }
 
     return (

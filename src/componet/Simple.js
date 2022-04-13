@@ -9,6 +9,7 @@ import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { CardMedia } from "@mui/material";
 import Moment from "react-moment";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,8 +53,13 @@ export default function CenteredGrid() {
       .post("http://localhost:3005/campaign/deleteCampaign", {
         token: token,
         id: id,
-      })
-      .then(() => navigate("/advertiser"));
+      }).then(()=>swal({
+        title: "campaign information",
+        icon: "success",
+        button: "ok",
+        text:"campaign delete successfully",
+        timer: 2000
+      })).then(() => navigate("/advertiser"));
   };
 
   const editCampaign = (e) => {

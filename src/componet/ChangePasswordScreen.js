@@ -10,7 +10,7 @@ import {
     Container,
     Typography
 } from '@material-ui/core'
-
+import swal from 'sweetalert';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useForm } from "react-hook-form";
@@ -60,11 +60,24 @@ const ChangePasswordScreen = () => {
         const user = await changePassword(data)
         
         if (user.success && (type[0])) {
+             swal({
+                title: "Password",
+                icon: "success",
+                button: "ok",
+                text:"Change password successfully",
+                timer: 2000
+              })
             navigate(`/${type}`)
         }else if((user.success) && (!type[0])){
             navigate(`/chooseUser`)
         }else{
-            alert("Error de cambio de Password")
+            swal({
+                title: "Password",
+                icon: "error",
+                button: "ok",
+                text:"your password has not been changed",
+                timer: 2000
+              })
         }
     }
 

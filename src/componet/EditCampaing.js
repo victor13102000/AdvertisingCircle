@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {campaignGet, campaingEdite} from "../service/CampaingEdite"
 import { useParams, useNavigate } from "react-router-dom";
 import { uploadImage } from "../service/UploadImage";
+import swal from "sweetalert";
 
 function EditCampaign() {
   const { register, handleSubmit } = useForm();
@@ -50,7 +51,15 @@ function EditCampaign() {
 
     data.img = imgUrl
 
-    campaingEdite(data, id).then(()=> navigate("/advertiser"))
+    campaingEdite(data, id)
+    .then(()=> swal({
+      title: "campaign information",
+      icon: "success",
+      button: "ok",
+      text:"campaign edit successfully",
+      timer: 2000
+    }))
+    .then(()=> navigate("/advertiser"))
   };
 
   return (

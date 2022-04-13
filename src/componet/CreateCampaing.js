@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { campaignCreate } from "../service/CampaingCreate";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { uploadImage } from "../service/UploadImage";
+import swal from 'sweetalert'
 
 function Campaign() {
   const { register, handleSubmit } = useForm();
@@ -30,6 +30,13 @@ function Campaign() {
 
     data.img = imgUrl
     campaignCreate(data);
+    swal({
+      title: "campaign information",
+      icon: "success",
+      button: "ok",
+      text:"campaign created successfully",
+      timer: 2000
+    })
     navigate('/advertiser')
   };
 
