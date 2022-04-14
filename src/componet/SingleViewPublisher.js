@@ -6,9 +6,16 @@ import axios from "axios";
 import { ListItem, List } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
-import { Box, CardMedia, Container, Typography } from "@mui/material";
+import {
+  Box,
+  CardMedia,
+  Container,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import Moment from "react-moment";
 import swal from "sweetalert";
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +37,6 @@ export default function CenteredGrid() {
   const [campaignObjetives, setCampaignObjetives] = useState("");
   const [campaignInit, setCampaignInit] = useState("");
   const [campaignEnd, setCampaignEnd] = useState("");
-  
 
   useEffect(async () => {
     const datos = await axios.post(
@@ -145,12 +151,14 @@ export default function CenteredGrid() {
                   <ListItem>{`URL: ${campaignObjetives.URL_objetivo}`}</ListItem>
                   <ListItem>{`Wanted visits: ${campaignObjetives.impresionesDeseadas}`}</ListItem>
                 </List>
-                <Button
+
+                <IconButton
                   style={{ marginLeft: "85%" }}
                   onClick={() => onSubmit()}
+                  aria-label="add to favorites"
                 >
-                  Favorites
-                </Button>
+                  <StarRoundedIcon sx={{ fontSize: 40 }} />
+                </IconButton>
               </Paper>
             </Grid>
           </Grid>
