@@ -12,13 +12,14 @@ const Advertiser = () => {
     const token = JSON.parse(localStorage.getItem("tokenLogin"))
 
 
-    useEffect(async() => {
-        await axios.post('http://localhost:3005/campaign/advertiserCampaigns', { token })
+    useEffect(() => {
+        axios.post('http://localhost:3005/campaign/advertiserCampaigns', { token })
             .then(res => setItems(res.data.campaigns))
             .then(()=>setLoading(false))
             .catch((err) => {
                 console.log(err)
             })
+            .then(()=>setLoading(false))
     },[])
 
 
