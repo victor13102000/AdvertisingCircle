@@ -6,30 +6,23 @@ import CardList from './CardList';
 import Message from './Message';
 import { useParams } from 'react-router';
 import { RotatingLines } from "react-loader-spinner"
+import { useSelector } from 'react-redux';
 
 const Publisher = () => {
     const [isLoading, setLoading] = useState(true);
     const { query } = useParams()
     const [items, setItems] = useState([]);
-    const [completeUserInfo, setCompleteUserInfo] = useState(false)
-
     const token = JSON.parse(localStorage.getItem("tokenLogin"))
-console.log(completeUserInfo)
-    useEffect(() => {
-        //Verificar si info de usuario esta completa
-        axios.post("http://localhost:3005/user/userInfo", { token })
-            .then(res => setCompleteUserInfo(res.data.success))
-            .then(() => setLoading(false))
-            .catch((err) => {
-                console.log(err)
 
-            })
+    const infoUsuario = useSelector(state => state.info)
+
+    useEffect(async () => {
+        //Verificar si info de usuario esta completa
 
         if (query) {
             
             axios.post("http://localhost:3005/campaign/publisherSpecificSearch", { token: token, nameSearchFor: query })
                 .then(res => {
-                    console.log(res)
                     setItems(res.data.campaigns)
                 })
                 .then(() => setLoading(false))
@@ -46,8 +39,6 @@ console.log(completeUserInfo)
         }
     }, [query])
 
-    
-
     return (
         <>
             {isLoading ?
@@ -58,7 +49,7 @@ console.log(completeUserInfo)
                         width={100}
                     //3 secs
                     />
-                </div>) : (!completeUserInfo ?
+                </div>) : (!infoUsuario ?
                     <Message severity="warning"><h6>Please complete your user info to continue:
                         <Link to="/profile" style={{ color: '#007bff', textDecoration: 'inherit' }}> <strong>Go to Profile</strong></Link> </h6></Message> : (
                         <>
