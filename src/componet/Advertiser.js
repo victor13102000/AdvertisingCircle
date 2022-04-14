@@ -15,14 +15,12 @@ const Advertiser = () => {
     useEffect(async() => {
         await axios.post('http://localhost:3005/campaign/advertiserCampaigns', { token })
             .then(res => setItems(res.data.campaigns))
+            .then(()=>setLoading(false))
             .catch((err) => {
                 console.log(err)
             })
-        setLoading(false);
     },[])
 
-
-    console.log(items);
 
     if (isLoading) {
         return (
