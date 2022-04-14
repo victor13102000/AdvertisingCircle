@@ -127,9 +127,7 @@ export default function PrimarySearchAppBar() {
               AdPolygon
             </Typography>
           </Link>
-          <Link to='/favorites'>
-          <Button>Favorites</Button>
-          </Link>
+          {type === "publisher" && <Link to='/favorites'><Button style={{color:"white"}}>Favorites</Button></Link>}
           {type === "publisher" && <Search/>}
           <div className={classes.grow} />
           {userLS === null ? (

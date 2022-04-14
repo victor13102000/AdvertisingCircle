@@ -3,9 +3,15 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { profileGet, profileRegister } from "../service/registerFunction";
 import swal from "sweetalert";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setInfo } from "../states/Info";
 
 function Profile() {
   const [data, setData] = useState({});
+  const type = localStorage.getItem('type')
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -16,14 +22,18 @@ function Profile() {
   const onSubmit = async (data, e) => {
     e.preventDefault();
 
-    profileRegister(data);
+    profileRegister(data)
+    localStorage.setItem("info", "true")
+    dispatch(setInfo(true))
     swal({
       title: "user information",
       icon: "success",
       button: "ok",
       text: "information created or edited correctly",
       timer: 2000,
-    });
+    })
+    navigate(`/${type}`)
+
   };
 
 

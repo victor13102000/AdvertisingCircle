@@ -43,13 +43,13 @@ function App() {
         <Route path="/changepassword" element={<ChangePasswordScreen />} />
         <Route path="/requestpasswordchange" element={<RequestPassChangeScreen />} />
         <Route path = "/chooseUser" element = {<ChooseUser/>}/>
-        <Route path="/advertiser" element={(typeLS === "advertiser") ? <Advertiser/>: <h1>ERROR</h1>} />
+        <Route path="/advertiser" element={typeLS === "advertiser" ? <Advertiser/>: <h1>ERROR</h1>} />
         <Route path="/publisher" element={typeLS === "publisher" ? <Publisher/>: <h1>ERROR</h1>} />
         <Route path= "/publisher/:query" element={typeLS === "publisher" ? <Publisher/>: <h1>ERROR</h1>}/>
         <Route path= "/profile" element={<Profile/>}/>
         <Route path="/newCampaign" element={<Campaign/>} />
         <Route path="/editCampaign/:id" element={<EditCampaign/>} />
-        <Route path="/favorites" element={<Favorites/>}/>
+        <Route path="/favorites" element={typeLS === "publisher" ? <Favorites/>: <h1>ERROR</h1>} />
         <Route path="/simpleview/:id" element={typeLS === "advertiser"?<Simple/>:<SingleViewPublisher />}/>
 
       </Routes>
