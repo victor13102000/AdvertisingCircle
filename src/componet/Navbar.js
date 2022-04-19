@@ -124,7 +124,7 @@ export default function PrimarySearchAppBar() {
           </IconButton>
           <Link to={`/${type}`} style={{ textDecoration: 'none', color: 'white' }}>
             <Typography className={classes.title} variant="h6" noWrap>
-              AdPolygon
+              AdvertisingCircle
             </Typography>
           </Link>
           {type === "publisher" && <Link to='/favorites'><Button style={{color:"white"}}>Favorites</Button></Link>}
